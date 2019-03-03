@@ -1,58 +1,84 @@
-- [x] homebrew
-Packages:
-  - [x] bash
-  - [x] ccat
-  - [x] git
-  - [x] git-extras
-  - [x] node
-  - [x] openssl
-  - [x] python
-  - [x] thefuck
-Casks:
-  - [x] Alfred
-  - [x] Bartender
-  - [x] Brave
-  - [x] Caffeine
-  - [x] Chrome
-  - [x] devdocs
-  - [x] Dropbox
-  - [x] Evernote
-  - [x] Fira Code Font
-  - [x] Firefox
-  - [x] Firefox Developer Edition
-  - [x] Franz
-  - [x] iTerm2
-  - [x] LiteSwitch X
-  - [x] Open iTerm
-  - [x] Slack
-  - [x] Spectacle
-  - [x] Spotify
-  - [x] Sublime Text
-  - [x] VS Code
-  - [x] Wacom driver
+## Homebrew:
 
-Node/NPM
-  - [x] git-home
-  - [x] list-scripts
-  - [x] n
-  - [x] npm-check-updates
-  - [x] npm-completion
-  - [x] serve
-  - [x] trash-cli
+-   [x] bash
+-   [x] ccat
+-   [x] git
+-   [x] git-extras
+-   [x] node
+-   [x] openssl
+-   [x] python
+-   [x] thefuck Casks:
+-   [x] Alfred
+-   [x] Bartender
+-   [x] Brave
+-   [x] Caffeine
+-   [x] Chrome
+-   [x] devdocs
+-   [x] Dropbox
+-   [x] Evernote
+-   [x] Fira Code Font
+-   [x] Firefox
+-   [x] Firefox Developer Edition
+-   [x] Franz
+-   [x] iTerm2
+-   [x] LiteSwitch X
+-   [x] Open iTerm
+-   [x] Slack
+-   [x] Spectacle
+-   [x] Spotify
+-   [x] Sublime Text
+-   [x] VS Code
+-   [x] Wacom driver
 
+## Node/NPM
 
-Github:
-- [ ] .bash* files
-- [ ] dot files
+-   [x] git-home
+-   [x] list-scripts
+-   [x] n
+-   [x] npm-check-updates
+-   [x] npm-completion
+-   [x] serve
+-   [x] trash-cli
 
+## Github:
 
-MAS:
-Memory Purge
-Xcode
+-   [ ] .bash\* files
+-   [ ] dot files
 
+## MAS:
 
+-   [ ] Memory
+-   [ ] Purge Xcode
 
-Manual:
-- [x] update Java?
-- [x] iCloud?
-- [x] Spotify MenuBar
+## Manual:
+
+-   [x] update Java?
+-   [x] iCloud?
+-   [x] Spotify MenuBar
+
+## Message:
+
+-   [x] Sync VS Code
+    -   [x] shan.code-settings-sync
+    -   [x] https://code.visualstudio.com/docs/editor/extension-gallery#_command-line-extension-management
+
+#### preferences:
+
+```json
+    "sync.gist": "6d39e51d58474cb280a64f79f3cc0912",
+```
+
+-   [x] Sync Sublime Text
+    -   [x] Sync Settings
+    -   [x] https://forum.sublimetext.com/t/install-plugins-from-command-line/29420
+
+```json
+{
+    "installed_packages": ["Package 1", "Package 2"]
+}
+```
+
+-   [x] Log in to Dropbox
+    -   [x] Sync Alfred Preferences
+    -   [x] Sync iTerm2 Preferences
+    -   [x] Sync Quiver Preferences
