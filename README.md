@@ -21,5 +21,6 @@ bash install.sh
 
 
 Inspired by:
+- [https://jeremy.hu/homebrew-cask-automate-mac-install/](https://jeremy.hu/homebrew-cask-automate-mac-install/)
 - [https://gist.github.com/t-io/8255711](https://gist.github.com/t-io/8255711)
 - [Setting up a new (OS X) development machine: Part 2 - Global Package Managers](https://mattstauffer.com/blog/setting-up-a-new-os-x-development-machine-part-2-global-package-managers/#creating-your-brewfile)
