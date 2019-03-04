@@ -19,6 +19,7 @@ bash install.sh
 
 - [ ] dotenv files
 - [ ] Docker: https://github.com/thoughtbot/laptop
+- [ ] oh-my-zsh
 
 
 Inspired by:
