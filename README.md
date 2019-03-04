@@ -1,3 +1,4 @@
+
 # OS X System and Environment Install Script
 
 Bash shell script to install system apps, packages, and dependencies on new machine
@@ -16,4 +17,9 @@ bash install.sh
 
 ## TODO
 
--   [ ] dotenv files
+- [ ] dotenv files
+
+
+Inspired by:
+- [https://gist.github.com/t-io/8255711](https://gist.github.com/t-io/8255711)
+- [Setting up a new (OS X) development machine: Part 2 - Global Package Managers](https://mattstauffer.com/blog/setting-up-a-new-os-x-development-machine-part-2-global-package-managers/#creating-your-brewfile)
