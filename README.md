@@ -1,4 +1,4 @@
-# osx-install
+# OS X System and Environment Install Script
 
 Bash shell script to install system apps, packages, and dependencies on new machine
 
