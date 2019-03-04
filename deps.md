@@ -47,6 +47,8 @@
 
 ## MAS:
 
+Installing using `mas-cli`
+
 -   [x] Evernote: 406056744
 -   [x] Memory Purge: 942385494
 -   [x] Xcode: 497799835

@@ -92,13 +92,11 @@ APPSTORE=(
   497799835 # Xcode
 )
 
-echo Installing `mas-cli`
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/guarinogabriel/mac-cli/master/mac-cli/tools/install)"
-
+read -p "Sign-in to App Store before continuing.\nPress any key to open App Store." -n1 -s
 open /Applications/App\ Store.app
-read -p "Sign-in to App Store before continuing.\nPress any key to continue... " -n1 -s
-echo  '\n'
+read -p "Press any key to continue after signing into the Apple App Store... " -n1 -s
 mas install ${APPSTORE[@]}
+echo  '\n'
 
 
 ## Get applications from Git repo
