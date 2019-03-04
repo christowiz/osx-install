@@ -18,7 +18,7 @@ bash install.sh
 ## TODO
 
 - [ ] dotenv files
-- [ ] Docker
+- [ ] Docker: https://github.com/thoughtbot/laptop
 
 
 Inspired by:
