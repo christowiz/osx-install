@@ -13,3 +13,7 @@ curl -sSL "https://raw.githubusercontent.com/christowiz/osx-install/master/insta
 ```
 bash install.sh
 ```
+
+## TODO
+
+-   [ ] dotenv files
