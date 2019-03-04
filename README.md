@@ -18,6 +18,7 @@ bash install.sh
 ## TODO
 
 - [ ] dotenv files
+- [ ] Docker
 
 
 Inspired by:
