@@ -40,11 +40,6 @@
 -   [x] serve
 -   [x] trash-cli
 
-## Github:
-
--   [ ] .bash\* files
--   [ ] dot files
-
 ## MAS:
 
 Installing using `mas-cli`
@@ -85,3 +80,8 @@ Installing using `mas-cli`
     -   [x] Sync Alfred Preferences
     -   [x] Sync iTerm2 Preferences
     -   [x] Sync Quiver Preferences
+
+## Github:
+
+-   [ ] .bash\* files
+-   [ ] dot files

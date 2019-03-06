@@ -23,9 +23,11 @@ brew install bash
 brew install ccat
 brew install git
 brew install git-extras
+brew install htop
 brew install mas
 brew install node
 brew install thefuck
+brew install tmux
 brew install wget
 
 # Core Functionality
@@ -38,6 +40,7 @@ BREW_APPS=(
   caffeine
   cd-to-iterm
   devdocs
+  docker
   dropbox
   evernote
   expressvpn
@@ -50,6 +53,7 @@ BREW_APPS=(
   homebrew/cask-versions/firefox-developer-edition
   iterm2
   java
+  kitematic
   liteswitch-x
   lingon-x
   macdown
