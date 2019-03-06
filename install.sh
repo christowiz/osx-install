@@ -51,6 +51,7 @@ BREW_APPS=(
   iterm2
   java
   liteswitch-x
+  lingon-x
   macdown
   sketch
   slack
