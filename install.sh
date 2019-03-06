@@ -79,7 +79,7 @@ echo Install Node packages
 mkdir ~/.npm-packages
 mkdir /usr/local/n
 sudo chown -R $(whoami) /usr/local/n
-npm install -g git-home list-scripts n npm-check-updates npm-completion serve trash-cli
+npm install -g git-open list-scripts n npm-check-updates npm-completion serve trash-cli
 
 
 echo Update Node/NPM version to latest
