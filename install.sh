@@ -7,6 +7,7 @@ then
   echo "  Installing Homebrew for you."
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" > /tmp/homebrew-install.log
 fi
+
 # Make sure we’re using the latest Homebrew.
 brew update
 
@@ -26,6 +27,7 @@ brew install git-extras
 brew install htop
 brew install mas
 brew install node
+brew install sass
 brew install thefuck
 brew install tmux
 brew install wget
