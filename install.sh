@@ -90,7 +90,9 @@ n install latest
 npm i -g npm@latest
 
 # Fix firewall when using `n` package
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/local/bin/node
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --remove $(which node)
+sudo codesign --force --sign - $(which node)
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $(which node)
 
 
 ## Get applications from App Store
