@@ -30,6 +30,7 @@ brew install node
 brew install sass
 brew install thefuck
 brew install tmux
+brew install watch
 brew install wget
 
 # Core Functionality
