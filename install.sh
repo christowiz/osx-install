@@ -85,10 +85,12 @@ mkdir /usr/local/n
 sudo chown -R $(whoami) /usr/local/n
 npm install -g git-open list-scripts n npm-check-updates npm-completion serve trash-cli
 
-
 echo Update Node/NPM version to latest
 n install latest
 npm i -g npm@latest
+
+# Fix firewall when using `n` package
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add /usr/local/bin/node
 
 
 ## Get applications from App Store
