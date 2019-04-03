@@ -183,9 +183,10 @@ xcode-select —-install
 ## https://github.com/bhilburn/powerlevel9k
 ## https://medium.freecodecamp.org/jazz-up-your-zsh-terminal-in-seven-steps-a-visual-guide-e81a8fd59a38
 ## https://medium.com/@alex285/get-powerlevel9k-the-most-cool-linux-shell-ever-1c38516b0caa
-FONT_TMP_DIR='.tmp'
+FONT_TMP_DIR=".tmp"
 git clone https://github.com/powerline/fonts.git ./$FONT_TMP_DIR
 ./$FONT_TMP_DIR/./install.sh
+rm -rf $FONT_TMP_DIR
 
 ## ZSH Plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -202,8 +203,10 @@ git clone git@github.com:mbadolato/iTerm2-Color-Schemes.git ~/.iterm2
 
 
 # Dotfiles
-curl -sSL "https://raw.githubusercontent.com/christowiz/dotfiles/master/bootstrap.sh" | sh
-
+DOT_TMP_DIR=".dot"
+git clone git@github.com:christowiz/dotfiles.git ./$DOT_TMP_DIR
+./$DOT_TMP_DIR/./bootstrap.sh
+rm -rf $DOT_TMP_DIR
 
 
 
