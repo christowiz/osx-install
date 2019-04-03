@@ -6,7 +6,7 @@ Bash shell script to install system apps, packages, and dependencies on new mach
 ## Easy one-liner
 
 ```
-curl -sSL "https://raw.githubusercontent.com/christowiz/osx-install/master/install.sh" | bash
+curl -sSL "https://raw.githubusercontent.com/christowiz/osx-install/master/install.sh" | sh
 ```
 
 
@@ -16,10 +16,6 @@ curl -sSL "https://raw.githubusercontent.com/christowiz/osx-install/master/insta
 $ sh install.sh
 ```
 
-
-## TODO
-
--   [ ] OSX files: https://github.com/mattstauffer/dotfiles/blob/master/.osx
 
 Inspired by:
 
