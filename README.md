@@ -2,21 +2,24 @@
 
 Bash shell script to install system apps, packages, and dependencies on new machine
 
+
 ## Easy one-liner
 
 ```
 curl -sSL "https://raw.githubusercontent.com/christowiz/osx-install/master/install.sh" | bash
 ```
 
+
 ## Download repo/file and run locally
 
 ```
-bash install.sh
+$ sh install.sh
 ```
+
 
 ## TODO
 
--   [ ] dotenv files
+-   [ ] OSX files: https://github.com/mattstauffer/dotfiles/blob/master/.osx
 
 Inspired by:
 
