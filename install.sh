@@ -201,6 +201,11 @@ git clone git@github.com:mbadolato/iTerm2-Color-Schemes.git ~/.iterm2
 
 
 
+# Dotfiles
+curl -sSL "https://raw.githubusercontent.com/christowiz/dotfiles/master/bootstrap.sh" | sh
+
+
+
 
 echo "Security: https://objective-see.com/products.html"
 echo "Additional manual configurations: Java, iCloud"
