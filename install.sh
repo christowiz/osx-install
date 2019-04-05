@@ -9,9 +9,31 @@ function section() {
   echo "$*"
 }
 
-echo "Set machine root password in Directory Utility"
+section "Set machine root password in Directory Utility"
 open /System/Library/CoreServices/Applications/Directory\ Utility.app
 pause "Press [Enter] to continue…"
+
+
+
+
+
+
+
+# Dotfiles
+section "Installing dotfiles from https://github.com/christowiz/dotfiles.git"
+DOT_TMP_DIR=".dot"
+mkdir $DOT_TMP_DIR
+git clone https://github.com/christowiz/dotfiles.git ./$DOT_TMP_DIR
+./$DOT_TMP_DIR/./bootstrap.sh
+rm -rf $DOT_TMP_DIR
+
+
+
+
+
+
+
+
 
 section "Install Homebrew, packages and casks"
 # Check for Homebrew
@@ -88,10 +110,6 @@ BREW_APPS=(
 brew cask install java
 brew cask install --appdir="~/Applications" ${BREW_APPS[@]}
 
-# Nice to have
-echo "Link Cask Apps to Alfred"
-brew cask alfred link
-
 # cleanup
 echo "Cleanup Homebrew"
 brew cleanup --verbose -s
@@ -108,22 +126,17 @@ rm -rf "$(brew --cache)"
 section "Install Node packages"
 mkdir ~/.npm-packages
 
-echo "Fixing `n` permissions"
-sudo mkdir /usr/local/n
-sudo chown -R $(whoami) $_
-
 # Fix firewall when using `n` package
 echo "Fix firewall when using `n` package"
-NODE_PATH=$(which node)
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --remove $NODE_PATH
-sudo codesign --force --sign - $NODE_PATH
-sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $NODE_PATH
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --remove $(which node)
+sudo codesign --force --sign - $(which node)
+sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $(which node)
 
 
 echo "Update Node version to latest"
 n install latest
 
-echo "Update NPM package versions to latest"
+echo "Installing global NPM packages"
 NPM_APPS=(
   git-open
   list-scripts
@@ -137,20 +150,9 @@ NPM_APPS=(
 )
 npm install -g ${NPM_APPS[@]}
 
-
-
-
-
-
-
-# Dotfiles
-section "Installing dotfiles from $DOTFILES"
-DOTFILES="https://github.com/christowiz/dotfiles.git"
-DOT_TMP_DIR=".dot"
-mkdir $DOT_TMP_DIR
-git clone $DOTFILES ./$DOT_TMP_DIR
-./$DOT_TMP_DIR/./bootstrap.sh
-rm -rf $DOT_TMP_DIR
+echo "Fixing `n` permissions"
+sudo mkdir /usr/local/n
+sudo chown -R $(whoami) $_
 
 
 
@@ -171,7 +173,7 @@ APPSTORE=(
   409183694 # Keynote
 )
 
-echo "Sign-in to App Store before continuing.\nPress any key to open App Store."
+echo "Sign-in to App Store before continuing"
 open /Applications/App\ Store.app
 pause "Press any key to continue after signing into the Apple App Store... " -n1 -s
 mas install ${APPSTORE[@]}
@@ -195,12 +197,13 @@ npx repo download christowiz/Spotify-Menubar-App 'Spotify Menubar.app' ~/Applica
 # Sync applications
 ## VS Code
 section "Install VS Code Sync extension"
-code -install-extension shan.code-settings-sync
-"6d39e51d58474cb280a64f79f3cc0912" | tr -d '\n' | pbcopy
-echo "Add Gist ID to Sync preferences"
-echo "6d39e51d58474cb280a64f79f3cc0912 -> copied to clipboard"
-pause "VS Code: ACCESS TOKEN REQUIRED"
 code -nw
+code -install-extension shan.code-settings-sync
+echo "6d39e51d58474cb280a64f79f3cc0912" | tr -d '\n' | pbcopy
+echo "6d39e51d58474cb280a64f79f3cc0912 -> copied to clipboard"
+echo "Add Gist ID to Sync preferences"
+echo "VS Code: ACCESS TOKEN REQUIRED"
+pause "Press [Enter] to continue…"
 
 
 
@@ -223,14 +226,14 @@ echo "Quiver"
 
 section "Configuring Sublime Text"
 SUBLIME=~/Library/Application\ Support/Sublime\ Text\ 3
-mkdir $SUBLIME
+mkdir ~/Library/Application\ Support/Sublime\ Text\ 3
 echo "Install Package Control"
-wget https://packagecontrol.io/Package%20Control.sublime-package -P $SUBLIME/Installed\ Packages/
+wget https://packagecontrol.io/Package%20Control.sublime-package -P ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/
 echo 'Sublime Text: After Dropbox is configured you can link "User" directory.'
 echo 'Delete default Sublime Text User directory'
-rm -rf $SUBLIME/Packages/User
+rm -rf ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 echo 'Link Dropbox Sublime Text User directory to application support'
-ln -s ~/Dropbox/Sublime\ Text\ 3/ $SUBLIME/Packages/User
+ln -s ~/Dropbox/Sublime\ Text\ 3/ ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 # echo '{"installed_packages": ["Sync Settings"]}' > $SUBLIME/Packages/User/Package\ Control.sublime-settings
 # echo "Sublime Text: ACCESS TOKEN REQUIRED"
 # echo '{"access_token": "","auto_upgrade": true,"gist_id": "c10ea5a4adf5ebd0d445787ef306afa6"}' > $SUBLIME/Packages/User/SyncSettings.sublime-settings
@@ -243,7 +246,7 @@ ln -s ~/Dropbox/Sublime\ Text\ 3/ $SUBLIME/Packages/User
 
 
 ## Set shell to zsh using `oh-my-zsh`
-CUSTOM_ZSH="~/.oh-my-zsh/custom"
+CUSTOM_ZSH=~/.oh-my-zsh/custom
 section "Installing Oh-My-Zsh"
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
@@ -274,8 +277,8 @@ sudo dscl . -create /Users/$USER UserShell $(which zsh)
 echo "Change shell to ZSH"
 chsh -s $(which zsh)
 echo "xcode-select install/switch"
-xcode-select --install
-xcode-select -s /Library/Developer/CommandLineTools/
+sudo xcode-select --install
+sudo xcode-select --switch /Library/Developer/CommandLineTools/
 
 
 
