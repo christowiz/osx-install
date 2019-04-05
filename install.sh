@@ -171,6 +171,7 @@ APPSTORE=(
   409201541 # Pages
   409203825 # Numbers
   409183694 # Keynote
+  748212890 # Memory Cleaner
 )
 
 echo "Sign-in to App Store before continuing"
