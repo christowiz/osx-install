@@ -10,7 +10,7 @@ function section() {
 }
 
 echo "Set machine root password in Directory Utility"
-open /System/Library/CoreServices/Directory\ Utility.app
+open /System/Library/CoreServices/Applications/Directory\ Utility.app
 pause "Press [Enter] to continue…"
 
 section "Install Homebrew, packages and casks"
