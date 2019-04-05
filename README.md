@@ -17,6 +17,11 @@ $ sh install.sh
 ```
 
 
+## TODO
+
+- [ ] Security tools: https://objective-see.com/products.html
+
+
 Inspired by:
 
 -   [https://jeremy.hu/homebrew-cask-automate-mac-install/](https://jeremy.hu/homebrew-cask-automate-mac-install/)
