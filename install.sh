@@ -11,7 +11,7 @@ function section() {
 
 section "Set machine root password in Directory Utility"
 open /System/Library/CoreServices/Applications/Directory\ Utility.app
-pause "Press [Enter] to continue…"
+read -p "Press [Enter] to continue…"
 
 
 
@@ -21,10 +21,10 @@ pause "Press [Enter] to continue…"
 
 # Dotfiles
 section "Installing dotfiles from https://github.com/christowiz/dotfiles.git"
-DOT_TMP_DIR=".dot"
+DOT_TMP_DIR=~/.dot
 mkdir $DOT_TMP_DIR
-git clone https://github.com/christowiz/dotfiles.git ./$DOT_TMP_DIR
-./$DOT_TMP_DIR/./bootstrap.sh
+git clone https://github.com/christowiz/dotfiles.git $DOT_TMP_DIR
+sh $DOT_TMP_DIR/bootstrap.sh
 rm -rf $DOT_TMP_DIR
 
 
@@ -176,7 +176,7 @@ APPSTORE=(
 
 echo "Sign-in to App Store before continuing"
 open /Applications/App\ Store.app
-pause "Press any key to continue after signing into the Apple App Store... " -n1 -s
+read -p "Press any key to continue after signing into the Apple App Store... " -n1 -s
 mas install ${APPSTORE[@]}
 echo "\n"
 
@@ -204,7 +204,7 @@ echo "6d39e51d58474cb280a64f79f3cc0912" | tr -d '\n' | pbcopy
 echo "6d39e51d58474cb280a64f79f3cc0912 -> copied to clipboard"
 echo "Add Gist ID to Sync preferences"
 echo "VS Code: ACCESS TOKEN REQUIRED"
-pause "Press [Enter] to continue…"
+read -p "Press [Enter] to continue…"
 
 
 
@@ -214,7 +214,7 @@ pause "Press [Enter] to continue…"
 
 section "Configure Dropbox"
 open ~/Applications/Dropbox.app
-pause "Press [Enter] when completed…"
+read -p "Press [Enter] when completed…"
 echo "After Dropbox is configured connect preferences for following apps:"
 echo "Alfred"
 echo "iTerm2"
