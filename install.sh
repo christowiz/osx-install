@@ -57,6 +57,7 @@ brew tap caskroom/fonts
 
 echo "Installing Brew CLI Formulae"
 brew install bash
+brew install brew-cask-completion
 brew install ccat
 brew install git
 brew install git-extras
