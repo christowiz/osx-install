@@ -22,10 +22,10 @@ read -p "Press [Enter] to continue…"
 # Dotfiles
 section "Installing dotfiles from https://github.com/christowiz/dotfiles.git"
 DOT_TMP_DIR=~/.dot
-mkdir $DOT_TMP_DIR
-git clone https://github.com/christowiz/dotfiles.git $DOT_TMP_DIR
-sh $DOT_TMP_DIR/bootstrap.sh
-rm -rf $DOT_TMP_DIR
+mkdir ~/.dot
+git clone https://github.com/christowiz/dotfiles.git ~/.dot
+sh ~/.dot/bootstrap.sh
+rm -rf ~/.dot
 
 
 
