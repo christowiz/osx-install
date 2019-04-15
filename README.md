@@ -3,16 +3,11 @@
 Bash shell script to install system apps, packages, and dependencies on new machine
 
 
-## Easy one-liner
-
-```
-curl -sSL "https://raw.githubusercontent.com/christowiz/osx-install/master/install.sh" | sh
-```
-
-
 ## Download repo/file and run locally
 
 ```
+$ git clone https://github.com/christowiz/osx-install.git
+$ cd osx-install
 $ sh install.sh
 ```
 
