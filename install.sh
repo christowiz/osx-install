@@ -15,7 +15,7 @@ function section() {
 
 section "Set machine root password in Directory Utility"
 open /System/Library/CoreServices/Applications/Directory\ Utility.app
-read -p "Press [Enter] to continue…"
+pause "Press [Enter] to continue…"
 
 
 
@@ -26,10 +26,10 @@ read -p "Press [Enter] to continue…"
 # Dotfiles
 section "Installing dotfiles from https://github.com/christowiz/dotfiles.git"
 DOT_TMP_DIR=~/.dot
-mkdir ~/.dot
-git clone https://github.com/christowiz/dotfiles.git ~/.dot
-sh ~/.dot/bootstrap.sh
-rm -rf ~/.dot
+mkdir $DOT_TMP_DIR
+git clone https://github.com/christowiz/dotfiles.git $DOT_TMP_DIR
+sh $DOT_TMP_DIR/bootstrap.sh
+rm -rf $DOT_TMP_DIR
 
 
 
@@ -48,9 +48,11 @@ then
 fi
 
 # Make sure we’re using the latest Homebrew.
+echo "Updating Brew…"
 brew update
 
 # Upgrade any already-installed formulae.
+echo "Upgrading Brew…"
 brew upgrade
 
 brew tap homebrew/core
@@ -146,7 +148,7 @@ NPM_APPS=(
   npm@latest
   npm-check-updates
   npm-completion
-  repo
+  pure-prompt
   serve
   trash-cli
 )
@@ -157,7 +159,7 @@ sudo mkdir /usr/local/n
 sudo chown -R $(whoami) $_
 
 echo "Update Node version to latest"
-n install latest
+n latest
 
 
 
@@ -180,7 +182,7 @@ APPSTORE=(
 
 echo "Sign-in to App Store before continuing"
 open /Applications/App\ Store.app
-read -p "Press any key to continue after signing into the Apple App Store... " -n1 -s
+pause "Press any key to continue after signing into the Apple App Store... " -n1 -s
 mas install ${APPSTORE[@]}
 echo "\n"
 
@@ -190,9 +192,18 @@ echo "\n"
 
 
 
+
+
 # Get applications from Git repo
-section "Install Spotify Menubar - IGNORED"
-#npx repo download christowiz/Spotify-Menubar-App 'Spotify Menubar.app' ~/Applications/Spotify\ Menubar.app
+section "Install Spotify Menubar"
+echo "Cloning binary from Github repo"
+git clone https://github.com/christowiz/Spotify-Menubar-App.git
+echo "Moving application only to ~/Applications"
+mv ./Spotify-Menubar-App/Spotify\ Menubar.app/ ~/Applications
+echo "Cleaning up…"
+rm -rf ./Spotify-Menubar-App
+
+
 
 
 
@@ -208,7 +219,7 @@ echo "6d39e51d58474cb280a64f79f3cc0912" | tr -d '\n' | pbcopy
 echo "6d39e51d58474cb280a64f79f3cc0912 -> copied to clipboard"
 echo "Add Gist ID to Sync preferences"
 echo "VS Code: ACCESS TOKEN REQUIRED"
-read -p "Press [Enter] to continue…"
+pause "Press any key to continue…"
 
 
 
@@ -221,11 +232,12 @@ read -p "Press [Enter] to continue…"
 
 section "Configure Dropbox"
 open ~/Applications/Dropbox.app
-read -p "Press [Enter] when completed…"
+pause "Press any key when completed…"
 echo "After Dropbox is configured connect preferences for following apps:"
 echo "Alfred"
+echo "Bartender"
 echo "iTerm2"
-echo "Quiver"
+# echo "Quiver"
 
 
 
@@ -308,11 +320,22 @@ git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git ~/.iterm2
 
 
 
-# Show hidden files
+
+
+# System Preferences
+section "Setting System preferences"
+
+echo "Show hidden files"
 defaults write com.apple.finder AppleShowAllFiles YES
 
-# Show path in Finder title bar
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool true; killall Finder
+echo "Show path in Finder title bar"
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
+## Restart Finder
+echo "Restarting Finder"
+killall Finder
+
+
 
 
 
@@ -321,3 +344,11 @@ echo "Additional manual configurations: Java, iCloud"
 
 unset pause
 unset section
+unset DOT_TMP_DIR
+unset BREW_APPS
+unset NPM_APPS
+unset APPSTORE
+unset SUBLIME
+unset CUSTOM_ZSH
+unset POWERLINE_FONTS
+unset FONT_TMP_DIR
