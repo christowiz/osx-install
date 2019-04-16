@@ -308,7 +308,11 @@ git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git ~/.iterm2
 
 
 
+# Show hidden files
+defaults write com.apple.finder AppleShowAllFiles YES
 
+# Show path in Finder title bar
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true; killall Finder
 
 
 
