@@ -159,7 +159,7 @@ sudo mkdir /usr/local/n
 sudo chown -R $(whoami) $_
 
 echo "Update Node version to latest"
-n install latest
+n latest
 
 
 
