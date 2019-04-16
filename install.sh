@@ -148,7 +148,7 @@ NPM_APPS=(
   npm@latest
   npm-check-updates
   npm-completion
-  repo
+  pure-prompt
   serve
   trash-cli
 )
@@ -192,9 +192,18 @@ echo "\n"
 
 
 
+
+
 # Get applications from Git repo
-section "Install Spotify Menubar - IGNORED"
-#npx repo download christowiz/Spotify-Menubar-App 'Spotify Menubar.app' ~/Applications/Spotify\ Menubar.app
+section "Install Spotify Menubar"
+echo "Cloning binary from Github repo"
+git clone https://github.com/christowiz/Spotify-Menubar-App.git
+echo "Moving application only to ~/Applications"
+mv ./Spotify-Menubar-App/Spotify\ Menubar.app/ ~/Applications
+echo "Cleaning up…"
+rm -rf ./Spotify-Menubar-App
+
+
 
 
 
@@ -226,8 +235,9 @@ open ~/Applications/Dropbox.app
 pause "Press any key when completed…"
 echo "After Dropbox is configured connect preferences for following apps:"
 echo "Alfred"
+echo "Bartender"
 echo "iTerm2"
-echo "Quiver"
+# echo "Quiver"
 
 
 
@@ -310,11 +320,22 @@ git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git ~/.iterm2
 
 
 
-# Show hidden files
+
+
+# System Preferences
+section "Setting System preferences"
+
+echo "Show hidden files"
 defaults write com.apple.finder AppleShowAllFiles YES
 
-# Show path in Finder title bar
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool true; killall Finder
+echo "Show path in Finder title bar"
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
+## Restart Finder
+echo "Restarting Finder"
+killall Finder
+
+
 
 
 
@@ -323,3 +344,11 @@ echo "Additional manual configurations: Java, iCloud"
 
 unset pause
 unset section
+unset DOT_TMP_DIR
+unset BREW_APPS
+unset NPM_APPS
+unset APPSTORE
+unset SUBLIME
+unset CUSTOM_ZSH
+unset POWERLINE_FONTS
+unset FONT_TMP_DIR
