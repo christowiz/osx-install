@@ -9,6 +9,10 @@ function section() {
   echo "$*"
 }
 
+
+
+
+
 section "Set machine root password in Directory Utility"
 open /System/Library/CoreServices/Applications/Directory\ Utility.app
 read -p "Press [Enter] to continue…"
@@ -51,6 +55,7 @@ brew upgrade
 
 brew tap homebrew/core
 brew tap mas-cli/tap
+brew tap mas-cli/tap/mas
 brew tap-pin mas-cli/tap
 brew tap caskroom/cask
 brew tap caskroom/fonts
@@ -133,10 +138,6 @@ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --remove $(which node)
 sudo codesign --force --sign - $(which node)
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $(which node)
 
-
-echo "Update Node version to latest"
-n install latest
-
 echo "Installing global NPM packages"
 NPM_APPS=(
   git-open
@@ -155,6 +156,8 @@ echo "Fixing `n` permissions"
 sudo mkdir /usr/local/n
 sudo chown -R $(whoami) $_
 
+echo "Update Node version to latest"
+n install latest
 
 
 
@@ -172,7 +175,7 @@ APPSTORE=(
   409201541 # Pages
   409203825 # Numbers
   409183694 # Keynote
-  748212890 # Memory Cleaner
+  #748212890 # Memory Cleaner
 )
 
 echo "Sign-in to App Store before continuing"
@@ -188,8 +191,8 @@ echo "\n"
 
 
 # Get applications from Git repo
-section "Install Spotify Menubar"
-npx repo download christowiz/Spotify-Menubar-App 'Spotify Menubar.app' ~/Applications/Spotify\ Menubar.app
+section "Install Spotify Menubar - IGNORED"
+#npx repo download christowiz/Spotify-Menubar-App 'Spotify Menubar.app' ~/Applications/Spotify\ Menubar.app
 
 
 
@@ -213,6 +216,9 @@ read -p "Press [Enter] to continue…"
 
 
 
+
+
+
 section "Configure Dropbox"
 open ~/Applications/Dropbox.app
 read -p "Press [Enter] when completed…"
@@ -220,6 +226,10 @@ echo "After Dropbox is configured connect preferences for following apps:"
 echo "Alfred"
 echo "iTerm2"
 echo "Quiver"
+
+
+
+
 
 
 
@@ -287,10 +297,14 @@ sudo xcode-select --switch /Library/Developer/CommandLineTools/
 
 
 
+
+
+
 # iTerm 2 color schemes
-ITERM_SCHEMES="https://github.com/mbadolato/iTerm2-Color-Schemes.git"
-echo "Installing iTerm2 Color Schemes from $ITERM_SCHEMES"
-git clone $ITERM_SCHEMES ~/.iterm2
+echo "Installing iTerm2 Color Schemes from https://github.com/mbadolato/iTerm2-Color-Schemes.git"
+git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git ~/.iterm2
+
+
 
 
 
