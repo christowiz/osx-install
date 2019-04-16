@@ -267,7 +267,7 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 ## https://medium.freecodecamp.org/jazz-up-your-zsh-terminal-in-seven-steps-a-visual-guide-e81a8fd59a38
 ## https://medium.com/@alex285/get-powerlevel9k-the-most-cool-linux-shell-ever-1c38516b0caa
 echo "Cloning 'Powerlevel9k' theme"
-git clone https://github.com/bhilburn/powerlevel9k.git $CUSTOM_ZSH/themes/powerlevel9
+git clone https://github.com/bhilburn/powerlevel9k.git $CUSTOM_ZSH/themes/powerlevel9k
 echo "Cloning 'zsh-autosuggestions' plugin"
 git clone https://github.com/zsh-users/zsh-autosuggestions $CUSTOM_ZSH/plugins/zsh-autosuggestions
 echo "Cloning 'zsh-syntax-highlighting' plugin"
