@@ -48,9 +48,11 @@ then
 fi
 
 # Make sure we’re using the latest Homebrew.
+echo "Updating Brew…"
 brew update
 
 # Upgrade any already-installed formulae.
+echo "Upgrading Brew…"
 brew upgrade
 
 brew tap homebrew/core
