@@ -1,5 +1,6 @@
 #!/bin/sh
 ## init
+CONTINUE="Press [Enter] to continue…"
 function pause() {
    read -p "$*"
 }
@@ -210,65 +211,6 @@ rm -rf ./Spotify-Menubar-App
 
 
 
-# Sync applications
-## VS Code
-section "Install VS Code Sync extension"
-code -nw
-code -install-extension shan.code-settings-sync
-echo "6d39e51d58474cb280a64f79f3cc0912" | tr -d '\n' | pbcopy
-echo "6d39e51d58474cb280a64f79f3cc0912 -> copied to clipboard"
-echo "Add Gist ID to Sync preferences"
-echo "VS Code: ACCESS TOKEN REQUIRED"
-pause "Press any key to continue…"
-
-
-
-
-
-
-
-
-
-
-section "Configure Dropbox"
-open ~/Applications/Dropbox.app
-pause "Press any key when completed…"
-echo "After Dropbox is configured connect preferences for following apps:"
-echo "Alfred"
-echo "Bartender"
-echo "iTerm2"
-# echo "Quiver"
-
-
-
-
-
-
-
-
-
-
-section "Configuring Sublime Text"
-SUBLIME=~/Library/Application\ Support/Sublime\ Text\ 3
-mkdir ~/Library/Application\ Support/Sublime\ Text\ 3
-echo "Install Package Control"
-wget https://packagecontrol.io/Package%20Control.sublime-package -P ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/
-echo 'Sublime Text: After Dropbox is configured you can link "User" directory.'
-echo 'Delete default Sublime Text User directory'
-rm -rf ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
-echo 'Link Dropbox Sublime Text User directory to application support'
-ln -s ~/Dropbox/Sublime\ Text\ 3/ ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
-# echo '{"installed_packages": ["Sync Settings"]}' > $SUBLIME/Packages/User/Package\ Control.sublime-settings
-# echo "Sublime Text: ACCESS TOKEN REQUIRED"
-# echo '{"access_token": "","auto_upgrade": true,"gist_id": "c10ea5a4adf5ebd0d445787ef306afa6"}' > $SUBLIME/Packages/User/SyncSettings.sublime-settings
-
-
-
-
-
-
-
-
 ## Set shell to zsh using `oh-my-zsh`
 CUSTOM_ZSH=~/.oh-my-zsh/custom
 section "Installing Oh-My-Zsh"
@@ -339,9 +281,93 @@ killall Finder
 
 
 
-echo "Security: https://objective-see.com/products.html"
-echo "Additional manual configurations: Java, iCloud"
 
+
+
+
+
+section "Configure Applications"
+open ~/Applications/Alfred\ 3.app
+pause "Opening Alfred 3. ${CONTINUE}"
+open ~/Applications/Bartender\ 3.app
+pause "Opening Bartender 3. ${CONTINUE}"
+open ~/Applications/Caffeine.app
+pause "Opening Caffeine. ${CONTINUE}"
+open ~/Applications/Dropbox.app
+pause "Opening Dropbox. ${CONTINUE}"
+open ~/Applications/Franz.app
+pause "Opening Franz. ${CONTINUE}"
+open ~/Library/PreferencePanes/LiteSwitch\ X.app
+pause "Opening LiteSwitch X. ${CONTINUE}"
+open ~/Applications/Spectacle.app
+pause "Opening Spectacle. ${CONTINUE}"
+open ~/Applications/Spotify\ Menubar.app
+pause "Opening Spotify Menubar. ${CONTINUE}"
+
+
+
+
+
+# Sync applications
+## VS Code
+section "Install VS Code Sync extension"
+code -nw
+code -install-extension shan.code-settings-sync
+echo "6d39e51d58474cb280a64f79f3cc0912" | tr -d '\n' | pbcopy
+echo "6d39e51d58474cb280a64f79f3cc0912 -> copied to clipboard"
+echo "Add Gist ID to Sync preferences"
+echo "VS Code: ACCESS TOKEN REQUIRED"
+pause "Press any key to continue…"
+
+
+
+
+
+
+
+
+
+
+
+section "Configuring Sublime Text"
+SUBLIME=~/Library/Application\ Support/Sublime\ Text\ 3
+mkdir ~/Library/Application\ Support/Sublime\ Text\ 3
+echo "Install Package Control"
+wget https://packagecontrol.io/Package%20Control.sublime-package -P ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/
+echo 'Sublime Text: After Dropbox is configured you can link "User" directory.'
+echo 'Delete default Sublime Text User directory'
+rm -rf ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+echo 'Link Dropbox Sublime Text User directory to application support'
+ln -s ~/Dropbox/Sublime\ Text\ 3/ ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+# echo '{"installed_packages": ["Sync Settings"]}' > $SUBLIME/Packages/User/Package\ Control.sublime-settings
+# echo "Sublime Text: ACCESS TOKEN REQUIRED"
+# echo '{"access_token": "","auto_upgrade": true,"gist_id": "c10ea5a4adf5ebd0d445787ef306afa6"}' > $SUBLIME/Packages/User/SyncSettings.sublime-settings
+
+
+
+
+
+
+
+echo "After applications are configured connect preferences in Dropbox for following apps:"
+pause "Configure Alfred"
+pause "Configure iTerm2"
+pause "Configure iTerm2"
+
+
+
+
+
+
+
+
+section "Additional security: https://objective-see.com/products.html"
+
+
+
+
+
+unset CONTINUE
 unset pause
 unset section
 unset DOT_TMP_DIR
