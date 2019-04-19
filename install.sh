@@ -83,7 +83,9 @@ brew install zsh
 echo "Installing Brew Cask Apps"
 BREW_APPS=(
   alfred
+  appcleaner
   bartender
+  bettertouchtool
   brave-browser
   caffeine
   cd-to-iterm
@@ -97,6 +99,7 @@ BREW_APPS=(
   font-fira-code
   franz
   google-chrome
+  google-chrome-canary
   homebrew/cask-drivers/wacom-tablet
   homebrew/cask-versions/firefox-developer-edition
   iterm2
