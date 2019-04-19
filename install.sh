@@ -155,6 +155,7 @@ NPM_APPS=(
   pure-prompt
   serve
   trash-cli
+  yarn
 )
 npm install -g ${NPM_APPS[@]}
 
