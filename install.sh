@@ -89,6 +89,7 @@ BREW_APPS=(
   brave-browser
   caffeine
   cd-to-iterm
+  cyberduck
   devdocs
   docker
   dropbox
