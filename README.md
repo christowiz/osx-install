@@ -15,6 +15,10 @@ $ sh install.sh
 ## TODO
 
 - [ ] Security tools: https://objective-see.com/products.html
+- [ ] tmux
+  - [ ] https://gist.github.com/simme/1297707
+  - [ ] https://github.com/TomAnthony/itermocil
+  - [ ] http://files.floriancrouzat.net/dotfiles/.tmux.conf
 
 
 Inspired by:

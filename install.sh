@@ -114,6 +114,7 @@ BREW_APPS=(
   spectacle
   spotify
   sublime-text
+  tmux
   transmit
   visual-studio-code
   zeplin
