@@ -116,6 +116,7 @@ BREW_APPS=(
   spectacle
   spotify
   sublime-text
+  tmux
   transmit
   visual-studio-code
   zeplin
@@ -157,6 +158,7 @@ NPM_APPS=(
   pure-prompt
   serve
   trash-cli
+  yarn
 )
 npm install -g ${NPM_APPS[@]}
 

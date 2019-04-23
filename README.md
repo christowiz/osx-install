@@ -17,6 +17,10 @@ $ sh install.sh
 - [ ] Security tools: https://objective-see.com/products.html
 - [ ] Link App preferences after Dropbox configured
   - [ ] Add script to link Sublime Text 3 User folder with Dropbox
+- [ ] tmux
+  - [ ] https://gist.github.com/simme/1297707
+  - [ ] https://github.com/TomAnthony/itermocil
+  - [ ] http://files.floriancrouzat.net/dotfiles/.tmux.conf
 
 
 Inspired by:
