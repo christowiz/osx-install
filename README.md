@@ -15,6 +15,8 @@ $ sh install.sh
 ## TODO
 
 - [ ] Security tools: https://objective-see.com/products.html
+- [ ] Link App preferences after Dropbox configured
+  - [ ] Add script to link Sublime Text 3 User folder with Dropbox
 
 
 Inspired by:
