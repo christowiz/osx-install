@@ -109,7 +109,6 @@ BREW_APPS=(
   liteswitch-x
   lingon-x
   macdown
-  mountain-duck
   sketch
   slack
   sourcetree
