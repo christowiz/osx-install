@@ -161,7 +161,7 @@ NPM_APPS=(
 )
 npm install -g ${NPM_APPS[@]}
 
-echo "Fixing `n` permissions"
+echo "Fixing n permissions"
 sudo mkdir /usr/local/n
 sudo chown -R $(whoami) $_
 
