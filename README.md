@@ -14,6 +14,7 @@ $ sh install.sh
 
 ## TODO
 
+- [ ] Use `n` or `nvm`
 - [ ] Security tools: https://objective-see.com/products.html
 - [ ] tmux
   - [ ] https://gist.github.com/simme/1297707
