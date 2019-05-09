@@ -161,7 +161,7 @@ NPM_APPS=(
 )
 npm install -g ${NPM_APPS[@]}
 
-echo "Fixing `n` permissions"
+echo "Fixing n permissions"
 sudo mkdir /usr/local/n
 sudo chown -R $(whoami) $_
 
@@ -337,14 +337,14 @@ pause "Press any key to continue…"
 
 section "Configuring Sublime Text"
 SUBLIME=~/Library/Application\ Support/Sublime\ Text\ 3
-mkdir ~/Library/Application\ Support/Sublime\ Text\ 3
+mkdir ${SUBLIME}
 echo "Install Package Control"
-wget https://packagecontrol.io/Package%20Control.sublime-package -P ~/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages/
+wget https://packagecontrol.io/Package%20Control.sublime-package -P ${SUBLIME}/Installed\ Packages/
 echo 'Sublime Text: After Dropbox is configured you can link "User" directory.'
 echo 'Delete default Sublime Text User directory'
-rm -rf ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+rm -rf ${SUBLIME}/Packages/User
 echo 'Link Dropbox Sublime Text User directory to application support'
-ln -s ~/Dropbox/Sublime\ Text\ 3/ ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+ln -s ~/Dropbox/Apps/Sublime\ Text\ 3/User ${SUBLIME}/Packages/User
 # echo '{"installed_packages": ["Sync Settings"]}' > $SUBLIME/Packages/User/Package\ Control.sublime-settings
 # echo "Sublime Text: ACCESS TOKEN REQUIRED"
 # echo '{"access_token": "","auto_upgrade": true,"gist_id": "c10ea5a4adf5ebd0d445787ef306afa6"}' > $SUBLIME/Packages/User/SyncSettings.sublime-settings
