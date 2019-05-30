@@ -16,6 +16,8 @@ $ sh install.sh
 
 - [ ] Playcode app: https://github.com/playcode/playcode-desktop
 - [ ] Use `n` or `nvm`
+- [ ] .gitconfig
+  - [ ] 'Add email' prompt
 - [ ] Security tools: https://objective-see.com/products.html
 - [ ] Link App preferences after Dropbox configured
   - [ ] Add script to link Sublime Text 3 User folder with Dropbox
