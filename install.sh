@@ -148,14 +148,19 @@ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $(which node)
 
 echo "Installing global NPM packages"
 NPM_APPS=(
+  fkill-cli
   git-open
   list-scripts
   n
-  npm@latest
+  ndb
+  node-inspector
   npm-check-updates
   npm-completion
+  npm-name-cli
+  npm@latest
   pure-prompt
   serve
+  tldr
   trash-cli
   yarn
 )
