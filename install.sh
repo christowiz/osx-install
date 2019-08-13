@@ -87,7 +87,9 @@ BREW_APPS=(
   bartender
   bettertouchtool
   brave-browser
+  brew-cask-completion
   caffeine
+  ccat
   cd-to-iterm
   cyberduck
   devdocs
@@ -99,16 +101,19 @@ BREW_APPS=(
   firefox
   font-fira-code
   franz
+  git-extras
   google-chrome
   google-chrome-canary
   homebrew/cask-drivers/wacom-tablet
   homebrew/cask-versions/firefox-developer-edition
+  htop
   iterm2
   java
   kitematic
   liteswitch-x
   lingon-x
   macdown
+  runjs
   sketch
   slack
   sourcetree
@@ -118,6 +123,7 @@ BREW_APPS=(
   tmux
   transmit
   visual-studio-code
+  wget
   zeplin
 )
 
