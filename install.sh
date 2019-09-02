@@ -70,9 +70,10 @@ brew install ccat
 brew install git
 brew install git-extras
 brew install htop
+brew install libsass
 brew install mas
 brew install node
-brew install libsass
+brew install openssl
 brew install thefuck
 brew install tmux
 brew install watch
@@ -87,12 +88,13 @@ BREW_APPS=(
   bartender
   bettertouchtool
   brave-browser
-  brew-cask-completion
   caffeine
   ccat
   cd-to-iterm
+  charles
   cyberduck
   devdocs
+  diffmerge
   docker
   dropbox
   evernote
@@ -100,19 +102,20 @@ BREW_APPS=(
   find-any-file
   firefox
   font-fira-code
+  fork
   franz
   git-extras
   google-chrome
   google-chrome-canary
   homebrew/cask-drivers/wacom-tablet
   homebrew/cask-versions/firefox-developer-edition
-  htop
   iterm2
   java
   kitematic
-  liteswitch-x
   lingon-x
+  liteswitch-x
   macdown
+  qlcolorcode
   runjs
   sketch
   slack
@@ -120,10 +123,11 @@ BREW_APPS=(
   spectacle
   spotify
   sublime-text
-  tmux
+  tor-browser
   transmit
   visual-studio-code
-  wget
+  wacom-tablet
+  whatsapp
   zeplin
 )
 
@@ -133,6 +137,7 @@ brew cask install --appdir="~/Applications" ${BREW_APPS[@]}
 # cleanup
 echo "Cleanup Homebrew"
 brew cleanup --verbose -s
+brew pin node
 rm -rf "$(brew --cache)"
 
 
