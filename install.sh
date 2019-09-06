@@ -73,7 +73,9 @@ brew install htop
 brew install libsass
 brew install mas
 brew install node
+brew install nvm
 brew install openssl
+brew install sargsyan/github-notifier/github-notifier
 brew install thefuck
 brew install tmux
 brew install watch
@@ -115,6 +117,7 @@ BREW_APPS=(
   lingon-x
   liteswitch-x
   macdown
+  opera
   qlcolorcode
   runjs
   sketch
@@ -138,6 +141,10 @@ brew cask install --appdir="~/Applications" ${BREW_APPS[@]}
 echo "Cleanup Homebrew"
 brew cleanup --verbose -s
 brew pin node
+
+# Install Github Notifier
+github-notifier-install
+
 rm -rf "$(brew --cache)"
 
 
