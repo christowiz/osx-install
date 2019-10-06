@@ -74,8 +74,8 @@ brew install libsass
 brew install mas
 brew install node
 brew install nvm
-brew install openssl
-brew install sargsyan/github-notifier/github-notifier
+brew install perl
+brew install python
 brew install thefuck
 brew install tmux
 brew install watch
@@ -91,22 +91,19 @@ BREW_APPS=(
   bettertouchtool
   brave-browser
   caffeine
-  ccat
   cd-to-iterm
   charles
   cyberduck
   devdocs
-  diffmerge
   docker
   dropbox
   evernote
   expressvpn
   find-any-file
   firefox
+  firefox-developer-edition
   font-fira-code
-  fork
   franz
-  git-extras
   google-chrome
   google-chrome-canary
   homebrew/cask-drivers/wacom-tablet
@@ -114,10 +111,10 @@ BREW_APPS=(
   iterm2
   java
   kitematic
+  krita
   lingon-x
   liteswitch-x
   macdown
-  opera
   qlcolorcode
   runjs
   sketch
@@ -130,7 +127,9 @@ BREW_APPS=(
   transmit
   visual-studio-code
   wacom-tablet
-  whatsapp
+  vectr
+  xquartz
+  inkscape
   zeplin
 )
 
@@ -140,11 +139,6 @@ brew cask install --appdir="~/Applications" ${BREW_APPS[@]}
 # cleanup
 echo "Cleanup Homebrew"
 brew cleanup --verbose -s
-brew pin node
-
-# Install Github Notifier
-github-notifier-install
-
 rm -rf "$(brew --cache)"
 
 
@@ -166,17 +160,18 @@ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $(which node)
 
 echo "Installing global NPM packages"
 NPM_APPS=(
+  airsonos
+  alfred-bundlephobia
   fkill-cli
   git-open
   list-scripts
   n
-  ndb
-  node-inspector
+  npm@latest
   npm-check-updates
   npm-completion
   npm-name-cli
-  npm@latest
   pure-prompt
+  react-devtools
   serve
   tldr
   trash-cli
@@ -184,7 +179,7 @@ NPM_APPS=(
 )
 npm install -g ${NPM_APPS[@]}
 
-echo "Fixing n permissions"
+echo "Fixing `n` permissions"
 sudo mkdir /usr/local/n
 sudo chown -R $(whoami) $_
 
