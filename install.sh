@@ -106,6 +106,8 @@ BREW_APPS=(
   franz
   google-chrome
   google-chrome-canary
+  haptic-touch-bar
+  hazeover
   homebrew/cask-drivers/wacom-tablet
   homebrew/cask-versions/firefox-developer-edition
   iterm2
@@ -115,6 +117,7 @@ BREW_APPS=(
   lingon-x
   liteswitch-x
   macdown
+  pock
   qlcolorcode
   runjs
   sketch
@@ -124,6 +127,7 @@ BREW_APPS=(
   spotify
   sublime-text
   tor-browser
+  touchswitcher
   transmit
   visual-studio-code
   wacom-tablet
