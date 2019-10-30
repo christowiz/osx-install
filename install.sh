@@ -122,6 +122,7 @@ BREW_APPS=(
   runjs
   sketch
   slack
+  sonos
   sourcetree
   spectacle
   spotify
