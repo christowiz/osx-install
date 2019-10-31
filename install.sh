@@ -105,6 +105,7 @@ BREW_APPS=(
   firefox-developer-edition
   font-fira-code
   franz
+  gimp
   google-chrome
   google-chrome-canary
   haptic-touch-bar
