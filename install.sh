@@ -70,6 +70,7 @@ brew install ccat
 brew install git
 brew install git-extras
 brew install htop
+brew install hub
 brew install libsass
 brew install mas
 brew install node
