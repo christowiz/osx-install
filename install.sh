@@ -120,6 +120,7 @@ BREW_APPS=(
   liteswitch-x
   macdown
   pock
+  prey
   qlcolorcode
   runjs
   sketch
