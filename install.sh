@@ -178,6 +178,7 @@ n latest
 section "Install App Store applications"
 
 APPSTORE=(
+  1091189122 # Bear
   406056744 # Evernote
   942385494 # Memory Purge
   497799835 # Xcode
