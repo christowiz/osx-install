@@ -70,9 +70,13 @@ brew install ccat
 brew install git
 brew install git-extras
 brew install htop
+brew install hub
+brew install libsass
 brew install mas
 brew install node
-brew install libsass
+brew install nvm
+brew install perl
+brew install python
 brew install thefuck
 brew install tmux
 brew install watch
@@ -89,6 +93,7 @@ BREW_APPS=(
   brave-browser
   caffeine
   cd-to-iterm
+  charles
   cyberduck
   devdocs
   docker
@@ -97,27 +102,42 @@ BREW_APPS=(
   expressvpn
   find-any-file
   firefox
+  firefox-developer-edition
   font-fira-code
   franz
+  gimp
   google-chrome
   google-chrome-canary
+  haptic-touch-bar
+  hazeover
   homebrew/cask-drivers/wacom-tablet
   homebrew/cask-versions/firefox-developer-edition
   iterm2
   java
   kitematic
-  liteswitch-x
+  krita
   lingon-x
+  liteswitch-x
   macdown
+  pock
+  prey
+  qlcolorcode
+  runjs
   sketch
   slack
+  sonos
   sourcetree
   spectacle
   spotify
   sublime-text
-  tmux
+  tor-browser
+  touchswitcher
   transmit
   visual-studio-code
+  wacom-tablet
+  vectr
+  xquartz
+  inkscape
   zeplin
 )
 
@@ -148,20 +168,26 @@ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $(which node)
 
 echo "Installing global NPM packages"
 NPM_APPS=(
+  airsonos
+  alfred-bundlephobia
+  fkill-cli
   git-open
   list-scripts
   n
   npm@latest
   npm-check-updates
   npm-completion
+  npm-name-cli
   pure-prompt
+  react-devtools
   serve
+  tldr
   trash-cli
   yarn
 )
 npm install -g ${NPM_APPS[@]}
 
-echo "Fixing n permissions"
+echo "Fixing `n` permissions"
 sudo mkdir /usr/local/n
 sudo chown -R $(whoami) $_
 
