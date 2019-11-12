@@ -79,6 +79,7 @@ brew install perl
 brew install python
 brew install thefuck
 brew install tmux
+brew install tor
 brew install watch
 brew install wget
 brew install zsh
