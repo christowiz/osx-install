@@ -79,6 +79,7 @@ brew install perl
 brew install python
 brew install thefuck
 brew install tmux
+brew install tor
 brew install watch
 brew install wget
 brew install zsh
@@ -205,6 +206,7 @@ n latest
 section "Install App Store applications"
 
 APPSTORE=(
+  1091189122 # Bear
   406056744 # Evernote
   942385494 # Memory Purge
   497799835 # Xcode
