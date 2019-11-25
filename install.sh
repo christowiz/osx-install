@@ -124,6 +124,7 @@ BREW_APPS=(
   qlcolorcode
   runjs
   sketch
+  skype
   slack
   sonos
   sourcetree
