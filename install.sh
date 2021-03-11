@@ -66,6 +66,7 @@ brew tap caskroom/fonts
 echo "Installing Brew CLI Formulae"
 brew install bash
 brew install brew-cask-completion
+brew install caddy
 brew install ccat
 brew install git
 brew install git-extras
@@ -97,6 +98,7 @@ BREW_APPS=(
   charles
   cyberduck
   devdocs
+  diffmerge
   docker
   dropbox
   evernote
@@ -104,6 +106,7 @@ BREW_APPS=(
   find-any-file
   firefox
   firefox-developer-edition
+  fluid
   font-fira-code
   franz
   gimp
@@ -113,13 +116,18 @@ BREW_APPS=(
   hazeover
   homebrew/cask-drivers/wacom-tablet
   homebrew/cask-versions/firefox-developer-edition
+  inkscape
   iterm2
   java
+  kdiff3
   kitematic
   krita
   lingon-x
   liteswitch-x
   macdown
+  microsoft-edge-dev
+  mutespotifyads
+  ngrok
   pock
   prey
   qlcolorcode
@@ -131,15 +139,16 @@ BREW_APPS=(
   sourcetree
   spectacle
   spotify
-  sublime-text
+  statusfy
+  suspicious-package
+  tableplus
   tor-browser
   touchswitcher
   transmit
+  vectr
   visual-studio-code
   wacom-tablet
-  vectr
   xquartz
-  inkscape
   zeplin
 )
 
@@ -170,7 +179,6 @@ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $(which node)
 
 echo "Installing global NPM packages"
 NPM_APPS=(
-  airsonos
   alfred-bundlephobia
   fkill-cli
   git-open
