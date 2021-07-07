@@ -199,7 +199,7 @@ NPM_APPS=(
   git-open
   list-scripts
   n
-  npm@latest
+  #npm@latest
   npm-check-updates
   npm-completion
   npm-name-cli
@@ -208,7 +208,7 @@ NPM_APPS=(
   serve
   tldr
   trash-cli
-  yarn
+  #yarn
 );
 npm install -g ${NPM_APPS[@]}
 
