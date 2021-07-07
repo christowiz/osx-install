@@ -14,9 +14,19 @@ function section() {
 
 
 
+section "Check OS version"
+echo "Make sure MacOS is up-to-date"
+pause "If MacOS is up-to-date then press [Enter] to continue…"
+
+
+
+
+
+
+
 section "Set machine root password in Directory Utility"
 open /System/Library/CoreServices/Applications/Directory\ Utility.app
-pause "Press [Enter] to continue…"
+pause "${CONTINUE}"
 
 
 
@@ -27,7 +37,8 @@ pause "Press [Enter] to continue…"
 # Dotfiles
 section "Installing dotfiles from https://github.com/christowiz/dotfiles.git"
 DOT_TMP_DIR=~/.dot
-mkdir $DOT_TMP_DIR
+sudo mkdir $DOT_TMP_DIR
+sudo chmod 777 $DOT_TMP_DIR
 git clone https://github.com/christowiz/dotfiles.git $DOT_TMP_DIR
 sh $DOT_TMP_DIR/bootstrap.sh
 rm -rf $DOT_TMP_DIR
@@ -41,6 +52,10 @@ rm -rf $DOT_TMP_DIR
 
 
 section "Install Homebrew, packages and casks"
+
+echo "Clean current Homebrew install"
+rm -fr $(brew --repo homebrew/core)
+
 # Check for Homebrew
 if test ! $(which brew)
 then
@@ -57,9 +72,9 @@ echo "Upgrading Brew…"
 brew upgrade
 
 brew tap homebrew/core
+brew tap buo/cask-upgrade
 brew tap mas-cli/tap
-brew tap mas-cli/tap/mas
-brew tap-pin mas-cli/tap
+Brew tap homebrew/cask-fonts
 brew tap caskroom/cask
 brew tap caskroom/fonts
 
@@ -72,10 +87,12 @@ brew install git
 brew install git-extras
 brew install htop
 brew install hub
+brew install java
 brew install libsass
 brew install mas
+Brew install mas-cli/tap/mas
 brew install node
-brew install nvm
+#brew install nvm
 brew install perl
 brew install python
 brew install thefuck
@@ -94,12 +111,10 @@ BREW_APPS=(
   bettertouchtool
   brave-browser
   caffeine
-  cd-to-iterm
   charles
   cyberduck
   devdocs
   diffmerge
-  docker
   dropbox
   evernote
   expressvpn
@@ -114,16 +129,14 @@ BREW_APPS=(
   google-chrome-canary
   haptic-touch-bar
   hazeover
-  homebrew/cask-drivers/wacom-tablet
+  homebrew/cask/docker
   homebrew/cask-versions/firefox-developer-edition
   inkscape
   iterm2
-  java
   kdiff3
   kitematic
   krita
   lingon-x
-  liteswitch-x
   macdown
   microsoft-edge-dev
   mutespotifyads
@@ -152,8 +165,7 @@ BREW_APPS=(
   zeplin
 )
 
-brew cask install java
-brew cask install --appdir="~/Applications" ${BREW_APPS[@]}
+brew install --appdir="~/Applications" ${BREW_APPS[@]}
 
 # cleanup
 echo "Cleanup Homebrew"
@@ -162,7 +174,10 @@ rm -rf "$(brew --cache)"
 
 
 
-
+# LiteSwitch X
+echo "Install LiteSwitch X manually"
+open https://sysbeep.com
+pause "After installing LiteSwitch X press [Enter] to continue…"
 
 
 
@@ -177,7 +192,7 @@ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --remove $(which node)
 sudo codesign --force --sign - $(which node)
 sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $(which node)
 
-echo "Installing global NPM packages"
+echo "Installing global NPM packages";
 NPM_APPS=(
   alfred-bundlephobia
   fkill-cli
@@ -194,7 +209,7 @@ NPM_APPS=(
   tldr
   trash-cli
   yarn
-)
+);
 npm install -g ${NPM_APPS[@]}
 
 echo "Fixing `n` permissions"
@@ -214,18 +229,13 @@ n latest
 section "Install App Store applications"
 
 APPSTORE=(
-  1091189122 # Bear
-  406056744 # Evernote
   942385494 # Memory Purge
   497799835 # Xcode
-  409201541 # Pages
-  409203825 # Numbers
-  409183694 # Keynote
-  #748212890 # Memory Cleaner
+  748212890 # Memory Cleaner
 )
 
 echo "Sign-in to App Store before continuing"
-open /Applications/App\ Store.app
+open /System/Applications/App\ Store.app
 pause "Press any key to continue after signing into the Apple App Store... " -n1 -s
 mas install ${APPSTORE[@]}
 echo "\n"
@@ -259,12 +269,11 @@ CUSTOM_ZSH=~/.oh-my-zsh/custom
 section "Installing Oh-My-Zsh"
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-## ZSH Powerlevel9k Theme
-## https://github.com/bhilburn/powerlevel9k
-## https://medium.freecodecamp.org/jazz-up-your-zsh-terminal-in-seven-steps-a-visual-guide-e81a8fd59a38
-## https://medium.com/@alex285/get-powerlevel9k-the-most-cool-linux-shell-ever-1c38516b0caa
-echo "Cloning 'Powerlevel9k' theme"
-git clone https://github.com/bhilburn/powerlevel9k.git $CUSTOM_ZSH/themes/powerlevel9k
+## ZSH Powerlevel10k Theme
+## https://github.com/romkatv/powerlevel10k
+## https://jwendl.net/2019/12/07/wsl-powerlevel10k/
+echo "Cloning 'Powerlevel10k' theme"
+git clone https://github.com/romkatv/powerlevel10k.git $CUSTOM_ZSH/themes/powerlevel10k
 echo "Cloning 'zsh-autosuggestions' plugin"
 git clone https://github.com/zsh-users/zsh-autosuggestions $CUSTOM_ZSH/plugins/zsh-autosuggestions
 echo "Cloning 'zsh-syntax-highlighting' plugin"
@@ -325,15 +334,19 @@ killall Finder
 
 
 
+# Install Prey
+section "Install Prey tracking app"
+Open https://preyproject.com
+pause "Press [ENTER] when completed "
 
 
 
 
 section "Configure Applications"
-open ~/Applications/Alfred\ 3.app
-pause "Opening Alfred 3. ${CONTINUE}"
+open ~/Applications/Alfred\ 4.app
+pause "Opening Alfred 4. ${CONTINUE}"
 open ~/Applications/Bartender\ 3.app
-pause "Opening Bartender 3. ${CONTINUE}"
+pause "Opening Bartender 4. ${CONTINUE}"
 open ~/Applications/Caffeine.app
 pause "Opening Caffeine. ${CONTINUE}"
 open ~/Applications/Dropbox.app
