@@ -199,6 +199,7 @@ NPM_APPS=(
   git-open
   list-scripts
   n
+  npkill
   #npm@latest
   npm-check-updates
   npm-completion
