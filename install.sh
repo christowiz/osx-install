@@ -2,20 +2,20 @@
 ## init
 CONTINUE="Press [Enter] to continue…"
 function pause() {
-  read -p "$*"
+  read -p "$* $CONTINUE"
 }
 
 function action() {
-  echo "--> $*"
+  echo -e "--> $*"
 }
 function section() {
-  echo "\n\n"
+  echo -e "\n\n"
   echo "<================== $* =====================>"
-  echo "\n"
+  echo -e "\n"
 }
 
 function yesCheck() {
-  read -p "$*"
+  read -p "$* (y/n): "
   if [ "$REPLY" = "y" ]; then
     return 0
   else
@@ -24,7 +24,7 @@ function yesCheck() {
 }
 
 function noCheck() {
-  read -p "$*"
+  read -p "$* (y/n): "
   if [ "$REPLY" = "n" ]; then
     return 0
   else
@@ -32,77 +32,82 @@ function noCheck() {
   fi
 }
 
+section "Installation setup"
+echo -e "Before you begin the installation process make sure you own your hoe directory:"
+echo -e "  sudo chown "
 # Software Update
-if [[ $OSTYPE == 'darwin'* ]]; then
-  section "Checking for available software updates"
-  softwareupdate -l
-
-  # Root pwd
-  section "Set up root password"
-  yesCheck "Set machine root password in Directory Utility (y/n)? " && open -b com.apple.systempreferences /System/Library/PreferencePanes/SoftwareUpdate.prefPane
+if [[ $OSTYPE != 'darwin'* ]]; then
+  echo "This script is not supported on MacOS operating systems."
+  exit 1
 fi
 
-# Dotfiles
-section "Installing dotfiles from https://github.com/christowiz/dotfiles.git"
-DOT_TMP_DIR=~/.dot
-sudo mkdir $DOT_TMP_DIR
-sudo chmod 777 $DOT_TMP_DIR
-git clone https://github.com/christowiz/dotfiles.git $DOT_TMP_DIR
-sh $DOT_TMP_DIR/bootstrap.sh
-rm -rf $DOT_TMP_DIR
+section "Checking for available software updates"
+if yesCheck "Do you want to run Software Update?"; then
+  action "Updating software…"
+  softwareupdate -l
+fi
+
+# Root pwd
+section "Set up root password"
+if yesCheck "Set machine root password in Directory Utility? "; then
+  open -b com.apple.DirectoryUtility
+fi
+
+section "Dotfiles"
+if yesCheck "Install dotfiles? "; then
+  # Dotfiles
+  pause "\nClone and install dotfiles from https://github.com/christowiz/dotfiles.git"
+fi
 
 # Install Hoemebrew
 section "Install Homebrew, packages and casks"
 
 # Check for Homebrew
-if test ! $(which brew); then
-  action "Clean current Homebrew install"
-  rm -fr $(brew --repo homebrew/core)
-else
-  action "Installing Homebrew for you."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+if yesCheck "Install Homebrew? "; then
+  if [ "$(command -v brew)" ]; then
+    action "Clean current Homebrew install"
+    rm -fr $(brew --repo homebrew/core)
+  else
+    action "Installing Homebrew for you."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>~/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  fi
 fi
 
-echo "Make sure we’re using the latest Homebrew"
+echo -e "\nMake sure we’re using the latest Homebrew"
 action "Updating Brew…"
 brew update
 
-echo "Upgrade any already-installed formulae"
+echo -e "\nUpgrade any already-installed formulae"
 action "Upgrading Brew…"
 brew upgrade
 
 action "Tapping Homebrew"
 brew tap homebrew/core
 brew tap buo/cask-upgrade
-brew tap mas-cli/tap
-Brew tap homebrew/cask-fonts
-brew tap caskroom/cask
-brew tap caskroom/fonts
+brew tap homebrew/cask
+brew tap homebrew/cask-drivers
+brew tap homebrew/cask-fonts
+brew tap homebrew/cask-versions
 
 BREW_APP_DIR=~/Applications
-BREW_APPS=(
+BREW_FORMULAES=(
   atuin
   awscli
   bash
   brew-cask-completion
   caddy
   ccat
-  cmake
   curl
   exa
   git
   git-extras
   go
-  heroku
-  heroku-node
   htop
   hub
   java
   lastpass-cli
-  libsass
-  mas
-  mas-cli/tap/mas
-  nvm
   perl
   python
   spoof-mac
@@ -128,14 +133,11 @@ BREW_CASK_APPS=(
   bartender
   brave-browser
   caffeine
-  charles
   cyberduck
   devdocs
-  diffmerge
   dropbox
-  docker
+  homebrew/cask/docker
   eloston-chromium
-  evernote
   expressvpn
   fig
   figma
@@ -147,10 +149,9 @@ BREW_CASK_APPS=(
   font-hack-nerd-font
   franz
   gimp
+  github
   google-chrome
   google-chrome-canary
-  firefox
-  firefox-developer-edition
   inkscape
   insomnia
   iterm2
@@ -165,11 +166,9 @@ BREW_CASK_APPS=(
   mutespotifyads
   ngrok
   oversight
-  prey
   runjs
   skype
   slack
-  sonos
   sourcetree
   spectacle
   spotify
@@ -179,7 +178,6 @@ BREW_CASK_APPS=(
   telegram
   tor-browser
   trilium-notes
-  vectr
   visual-studio-code
   wacom-tablet
   xbar
@@ -202,49 +200,12 @@ NPM_APPS=(
   trash-cli
 )
 
-echo "Choose Node.js package manager:"
-select pkg in asdf n nvn volta; do
-  if [ 1 -le "$pkg" ] && [ "$pkg" -le $# ]; then
-    # if [ "$pkg" = "n" ]; then
-    #   NPM_APPS=(${NPM_APPS[@]} "n")
-    # else
-    #   BREW_APPS=(${BREW_APPS[@]} "nvm")
-    # fi
-    # break
-    case $pkg in
-    # Two case values are declared here for matching
-    "asdf")
-      BREW_APPS=(${BREW_APPS[@]} "asdf", "gpg")
-      ;;
-      # Three case values are declared here for matching
-    "n")
-      BREW_APPS=(${BREW_APPS[@]} "n")
-      ;;
-      # Three case values are declared here for matching
-    "nvm")
-      BREW_APPS=(${BREW_APPS[@]} "nvm")
-      ;;
-    "volta")
-      BREW_APPS=(${BREW_APPS[@]} "volta")
-      ;;
-    # Matching with invalid data
-    *)
-      echo "Invalid entry."
-      break
-      ;;
-    esac
-
-  else
-    echo "Wrong selection: Select any number from 1-$#"
-  fi
-done
-
-if yesCheck "Would you like to install Yarn? (y/n)? "; then
-  BREW_APPS=(${BREW_APPS[@]} "yarn")
-fi
-
 action "Installing Brew CLI Formulae"
-brew install ${BREW_APPS[@]}
+brew install ${BREW_FORMULAES[@]}
+
+# Symlink Java
+action "Configuring Java install"
+sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
 
 action "Installing Brew Cask Apps"
 brew install --appdir="~/Applications" ${BREW_CASK_APPS[@]}
@@ -255,38 +216,57 @@ brew cleanup --verbose -s
 rm -rf "$(brew --cache)"
 
 # NODE
-section "Install Node packages"
+section "Node.js"
 
-action "Installing Node.js"
-case $pkg in
-# Two case values are declared here for matching
-"asdf")
-  asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-  ;;
-  # Three case values are declared here for matching
-"n")
-  n lts
+echo "Choose Node.js package manager:"
+PKG_MGRS=(asdf n nvm volta)
+select pkg in "${PKG_MGRS[@]}"; do
+  case $pkg in
+  "asdf" | 1)
+    brew install asdf gpg
+    asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+    break
+    ;;
+  "n" | 2)
+    brew install n
+    n lts
 
-  action "Fixing $(n) permissions"
-  sudo mkdir /usr/local/n
-  sudo chown -R $(whoami) $_
+    action "Fixing $(n) permissions"
+    sudo mkdir /usr/local/n
+    sudo chown -R $(whoami) $_
 
-  action "Fix firewall when using $(n) package"
-  sudo /usr/libexec/ApplicationFirewall/socketfilterfw --remove $(which node)
-  sudo codesign --force --sign - $(which node)
-  sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $(which node)
-  ;;
-  # Three case values are declared here for matching
-"nvm")
-  if command -v nvm | grep -q 'command not found'; then
-    source ~/.zshrc
+    action "Fix firewall when using $(n) package"
+    sudo /usr/libexec/ApplicationFirewall/socketfilterfw --remove $(which node)
+    sudo codesign --force --sign - $(which node)
+    sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $(which node)
+    break
+    ;;
+  "nvm" | 3)
+    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
+    action "Setting up nvm"
+    echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"\n[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >>~/.zshrc
+    source ~/.nvm/nvm.sh
+    # source ~/.zprofile
+
     nvm install node
-  fi
-  ;;
-"volta")
-  volta install node
-  ;;
-esac
+    break
+    ;;
+  "volta" | 4)
+    brew install volta
+    volta install node
+    break
+    ;;
+  *)
+    echo "Wrong selection: Select any number from 1-$#"
+    break
+    ;;
+  esac
+done
+
+if yesCheck "Would you like to install Yarn?? "; then
+  brew install yarn
+fi
 
 action "Installing global NPM packages"
 npm install -g ${NPM_APPS[@]}
@@ -307,9 +287,9 @@ npm install -g ${NPM_APPS[@]}
 # echo "\n"
 
 ## Set shell to zsh using `oh-my-zsh`
-CUSTOM_ZSH=~/.oh-my-zsh/custom
 section "Installing Oh-My-Zsh"
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+CUSTOM_ZSH=~/.oh-my-zsh/custom
 
 ## ZSH Powerlevel10k Theme
 ## https://github.com/romkatv/powerlevel10k
@@ -336,8 +316,13 @@ action "Add Brew-installed shells to /etc/shell"
 sudo dscl . -create /Users/$USER UserShell $(which bash)
 sudo dscl . -create /Users/$USER UserShell $(which zsh)
 
-action "Change shell to ZSH"
-chsh -s $(which zsh)
+section "Check shell type"
+if [[ $(echo $0) != '/bin/zsh'* ]]; then
+  if yesCheck "Would you like to switch to ZSH? (y/n)? "; then
+    action "Changeing shell to ZSH"
+    chsh -s $(which zsh)
+  fi
+fi
 
 ecactionho "xcode-select install/switch"
 sudo xcode-select --install
@@ -345,7 +330,7 @@ sudo xcode-select --switch /Library/Developer/CommandLineTools/
 
 # iTerm 2 color schemes
 action "Installing iTerm2 Color Schemes from https://github.com/mbadolato/iTerm2-Color-Schemes.git"
-git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git ~/.iterm2
+git clone https://github.com/mbadolato/iTerm2-Color-Schemes.git ~/.iterm2/iTerm2-Color-Schemes
 
 # System Preferences
 section "Setting System preferences"
@@ -360,26 +345,36 @@ defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 action "Restarting Finder"
 killall Finder
 
+section "Manual application install"
+
+if yesCheck "Would you like to install Quiver?"; then
+  pause "Download Quiver from https://yliansoft.com and drag it to your Applications folder."
+  open "https://yliansoft.com"
+fi
+
 # Install Prey
-section "Install Prey tracking app"
-Open https://preyproject.com
-pause "Press [ENTER] when completed "
+if yesCheck "Would you like to install Prey?"; then
+  Open https://preyproject.com
+  pause
+fi
 
 section "Configure Applications"
+action "Configure Dropbox for synced application preferences"
+open $BREW_APP_DIR/Dropbox.app
+pause "Opening Dropbox. ${CONTINUE}"
+
 open $BREW_APP_DIR/Alfred\ 4.app
 pause "Opening Alfred 4. ${CONTINUE}"
 open $BREW_APP_DIR/Bartender\ 3.app
 pause "Opening Bartender 4. ${CONTINUE}"
 open $BREW_APP_DIR/Caffeine.app
 pause "Opening Caffeine. ${CONTINUE}"
-open $BREW_APP_DIR/Dropbox.app
-pause "Opening Dropbox. ${CONTINUE}"
 open $BREW_APP_DIR/Franz.app
 pause "Opening Franz. ${CONTINUE}"
 open $BREW_APP_DIR/Spectacle.app
 pause "Opening Spectacle. ${CONTINUE}"
 open $BREW_APP_DIR/Spotify.app
-pause "Opening Spotify Menubar. ${CONTINUE}"
+pause "Opening Spotify. ${CONTINUE}"
 
 echo "After applications are configured connect preferences in Dropbox for following apps:"
 pause "Configure Alfred"
@@ -387,16 +382,16 @@ pause "Configure iTerm2"
 
 section "Additional security: https://objective-see.com/products.html"
 
-unset CONTINUE
-unset pause
-unset pkg
-unset section
-unset DOT_TMP_DIR
+unset APPSTORE
 unset BREW_APP_DIR
 unset BREW_CASK_APPS
-unset NPM_APPS
-unset APPSTORE
-unset SUBLIME
+unset BREW_FORMULAES
+unset CONTINUE
 unset CUSTOM_ZSH
-unset POWERLINE_FONTS
 unset FONT_TMP_DIR
+unset NPM_APPS
+unset pause
+unset PKG_MGRS
+unset POWERLINE_FONTS
+unset section
+unset SUBLIME
