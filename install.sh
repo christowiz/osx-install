@@ -179,7 +179,7 @@ BREW_CASK_APPS=(
   tor-browser
   trilium-notes
   visual-studio-code
-  wacom-tablet
+  # wacom-tablet
   xbar
   xquartz
 )
