@@ -395,3 +395,18 @@ unset PKG_MGRS
 unset POWERLINE_FONTS
 unset section
 unset SUBLIME
+
+section "Applications requiring system restart"
+if yesCheck "Would you like to download the 6.3.41-2 Wacom Tablet driver? (This version supports normal pan/scroll functionality)"; then
+  action "Downloading tablet driver from https://cdn.wacom.com/"
+  curl -L -o ~/Downloads/WacomTablet_6.3.41-2.dmg https://cdn.wacom.com/u/productsupport/drivers/mac/professional/WacomTablet_6.3.41-2.dmg
+  echo "Driver installed to ~/Downloads/WacomTablet_6.3.41-2.dmg"
+  if yesCheck "Would you like to install the driver now?  This will require a system restart"; then
+    action "Installing Wacom Tablet driver"
+    sudo installer -pkg ~/Downloads/WacomTablet_6.3.41-2.dmg -target /
+    echo "Driver installed"
+  else
+    echo "Install manually when ready"
+    open ~/Downloads
+  fi
+fi
