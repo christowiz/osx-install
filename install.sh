@@ -101,14 +101,16 @@ BREW_FORMULAES=(
   ccat
   curl
   exa
+  fig
   git
   git-extras
   go
   htop
-  hub
   java
   lastpass-cli
+  nativefier
   perl
+  platypus
   python
   spoof-mac
   telnet
@@ -147,8 +149,7 @@ BREW_CASK_APPS=(
   fluid
   font-fira-code
   font-hack-nerd-font
-  franz
-  gimp
+  gimp 
   github
   google-chrome
   google-chrome-canary
@@ -165,12 +166,14 @@ BREW_CASK_APPS=(
   microsoft-edge-dev
   mutespotifyads
   ngrok
+  obsidian
   oversight
+  platypus
+  rectangle
   runjs
   skype
   slack
   sourcetree
-  spectacle
   spotify
   statusfy
   suspicious-package
@@ -179,7 +182,6 @@ BREW_CASK_APPS=(
   tor-browser
   trilium-notes
   visual-studio-code
-  # wacom-tablet
   xbar
   xquartz
 )
