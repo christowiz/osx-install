@@ -96,6 +96,7 @@ BREW_FORMULAES=(
   atuin
   awscli
   bash
+  bat
   brew-cask-completion
   caddy
   ccat
@@ -136,7 +137,7 @@ BREW_CASK_APPS=(
   brave-browser
   caffeine
   cyberduck
-  devdocs
+  dteoh-devdocs
   dropbox
   homebrew/cask/docker
   eloston-chromium
@@ -153,6 +154,7 @@ BREW_CASK_APPS=(
   github
   google-chrome
   google-chrome-canary
+  http-toolkit
   inkscape
   insomnia
   iterm2
@@ -162,6 +164,7 @@ BREW_CASK_APPS=(
   launchcontrol
   lingon-x
   macdown
+  macsvg
   memory-cleaner
   microsoft-edge-dev
   mutespotifyads
@@ -169,6 +172,13 @@ BREW_CASK_APPS=(
   obsidian
   oversight
   platypus
+  postman
+  qlimagesize
+  qlmarkdown
+  qlstephen
+  qlvideo
+  quicklook-json
+  quicklookase
   rectangle
   runjs
   skype
@@ -184,6 +194,9 @@ BREW_CASK_APPS=(
   visual-studio-code
   xbar
   xquartz
+)
+BREW_CASK_NO_QUARANTINE=(
+  syntax-highlight
 )
 NPM_APPS=(
   alfred-bundlephobia
@@ -211,6 +224,7 @@ sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVir
 
 action "Installing Brew Cask Apps"
 brew install --appdir="~/Applications" ${BREW_CASK_APPS[@]}
+brew install --cask --appdir="~/Applications" --no-quarantine ${BREW_CASK_NO_QUARANTINE[@]}
 
 # cleanup
 echo "Cleanup Homebrew"
