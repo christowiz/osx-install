@@ -102,14 +102,19 @@ BREW_FORMULAES=(
   ccat
   curl
   exa
-  fig
+  gh
   git
   git-extras
   go
   htop
+  hub
   java
   lastpass-cli
+  mongodb-community
+  mongodb-database-tools
+  mongosh
   nativefier
+  nvm
   perl
   platypus
   python
@@ -123,6 +128,7 @@ BREW_FORMULAES=(
   tree
   watch
   wget
+  xz
   zsh
 )
 
@@ -130,15 +136,17 @@ BREW_FORMULAES=(
 BREW_CASK_APPS=(
   a-better-finder-rename
   alfred
-  appcleaner
   app-tamer
+  apparency
+  appcleaner
   authy
   bartender
   brave-browser
   caffeine
   cyberduck
-  dteoh-devdocs
+  docker
   dropbox
+  dteoh-devdocs
   homebrew/cask/docker
   eloston-chromium
   expressvpn
@@ -166,31 +174,35 @@ BREW_CASK_APPS=(
   macdown
   macsvg
   memory-cleaner
-  microsoft-edge-dev
+  microsoft-edge
+  miro
+  mongodb-compass
   mutespotifyads
   ngrok
+  notion-enhanced
   obsidian
+  openvpn-connect
   oversight
-  platypus
+  paw
   postman
   qlimagesize
   qlmarkdown
-  qlstephen
   qlvideo
   quicklook-json
   quicklookase
   rectangle
-  runjs
   skype
   slack
+  sonos
   sourcetree
   spotify
   statusfy
+  studio-3t
   suspicious-package
   tableplus
   telegram
   tor-browser
-  trilium-notes
+  tunnelblick
   visual-studio-code
   xbar
   xquartz
