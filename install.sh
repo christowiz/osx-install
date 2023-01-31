@@ -110,13 +110,13 @@ BREW_FORMULAES=(
   hub
   java
   lastpass-cli
+  mcfly
   mongodb-community
   mongodb-database-tools
   mongosh
   nativefier
   nvm
   perl
-  platypus
   python
   spoof-mac
   telnet
@@ -235,8 +235,8 @@ action "Configuring Java install"
 sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
 
 action "Installing Brew Cask Apps"
-brew install --appdir="~/Applications" ${BREW_CASK_APPS[@]}
-brew install --cask --appdir="~/Applications" --no-quarantine ${BREW_CASK_NO_QUARANTINE[@]}
+brew install --appdir=$BREW_APP_DIR ${BREW_CASK_APPS[@]}
+brew install --cask --appdir=$BREW_APP_DIR --no-quarantine ${BREW_CASK_NO_QUARANTINE[@]}
 
 # cleanup
 echo "Cleanup Homebrew"
