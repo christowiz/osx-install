@@ -158,7 +158,7 @@ BREW_CASK_APPS=(
   fluid
   font-fira-code
   font-hack-nerd-font
-  gimp 
+  gimp
   github
   google-chrome
   google-chrome-canary
@@ -193,6 +193,7 @@ BREW_CASK_APPS=(
   rectangle
   skype
   slack
+  sloth
   sonos
   sourcetree
   spotify
