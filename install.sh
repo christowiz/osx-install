@@ -140,6 +140,7 @@ BREW_CASK_APPS=(
   apparency
   appcleaner
   authy
+  background-music
   bartender
   brave-browser
   caffeine
@@ -163,6 +164,7 @@ BREW_CASK_APPS=(
   google-chrome
   google-chrome-canary
   http-toolkit
+  iina
   inkscape
   insomnia
   iterm2
