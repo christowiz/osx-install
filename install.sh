@@ -97,6 +97,7 @@ BREW_FORMULAES=(
   awscli
   bash
   bat
+  bfg
   brew-cask-completion
   caddy
   ccat
@@ -193,6 +194,7 @@ BREW_CASK_APPS=(
   quicklook-json
   quicklookase
   rectangle
+  scroll-reverser
   skype
   slack
   sloth
