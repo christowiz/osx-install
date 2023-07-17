@@ -105,6 +105,7 @@ BREW_FORMULAES=(
   exa
   gh
   git
+  git-filter-repo
   git-extras
   go
   htop
