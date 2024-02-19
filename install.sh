@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ## init
 CONTINUE="Press [Enter] to continue…"
 function pause() {
@@ -84,42 +84,77 @@ action "Upgrading Brew…"
 brew upgrade
 
 action "Tapping Homebrew"
-brew tap homebrew/core
 brew tap buo/cask-upgrade
-brew tap homebrew/cask
-brew tap homebrew/cask-drivers
+brew tap hashicorp/tap
 brew tap homebrew/cask-fonts
 brew tap homebrew/cask-versions
+brew tap homebrew/services
+brew tap sindrel/tap
 
 BREW_APP_DIR=~/Applications
 BREW_FORMULAES=(
+  asciinema
   atuin
+  autojump
+  automake
+  aws-amplify
+  aws-rotate-key
   awscli
   bash
+  bash-completion
   bat
+  berkeley-db
   bfg
   brew-cask-completion
+  brew-gem
   caddy
   ccat
+  corepack
+  coreutils
   curl
+  deno
   exa
+  fbthrift
+  fx
   gh
   git
-  git-filter-repo
   git-extras
+  git-filter-repo
+  gitup
+  gnu-sed
+  gnupg
   go
+  grep
+  hashicorp/tap/vault
   htop
   hub
+  hyperfine
+  ios-deploy
   java
+  jless
+  jpeg
+  jq
+  kubernetes-cli
   lastpass-cli
+  lazygit
+  libepoxy
   mcfly
+  mkcert
+  mongodb-atlas-cli
   mongodb-community
   mongodb-database-tools
   mongosh
   nativefier
+  neovim
   nvm
+  openssh
   perl
+  powerlevel10k
   python
+  ruby
+  sdl2
+  sindrel/tap/excalidraw-converter
+  soundsource
   spoof-mac
   telnet
   terminal-notifier
@@ -128,29 +163,40 @@ BREW_FORMULAES=(
   tmux
   tor
   tree
+  unixodbc
   watch
+  watchman
   wget
   xz
+  yq
   zsh
 )
 
 # Core Functionality
 BREW_CASK_APPS=(
   a-better-finder-rename
+  adoptopenjdk
+  adoptopenjdk8
   alfred
+  android-studio
   app-tamer
   apparency
   appcleaner
   authy
   background-music
   bartender
+  box-drive
   brave-browser
   caffeine
+  cakebrewjs
+  calibre
+  ccleaner
   cyberduck
+  discord
+  diskcatalogmaker
   docker
   dropbox
   dteoh-devdocs
-  homebrew/cask/docker
   eloston-chromium
   expressvpn
   fig
@@ -162,19 +208,25 @@ BREW_CASK_APPS=(
   font-fira-code
   font-hack-nerd-font
   gimp
+  gitbutler
   github
   google-chrome
   google-chrome-canary
+  handbrake
+  homebrew/cask/docker
   http-toolkit
   iina
   inkscape
   insomnia
   iterm2
+  kindle
+  kindle-previewer
   kitematic
   krita
   lastpass
   launchcontrol
   lingon-x
+  livebook
   macdown
   macsvg
   memory-cleaner
@@ -189,11 +241,14 @@ BREW_CASK_APPS=(
   oversight
   paw
   postman
+  qlcolorcode
   qlimagesize
   qlmarkdown
+  qlstephen
   qlvideo
   quicklook-json
   quicklookase
+  raycast
   rectangle
   scroll-reverser
   skype
@@ -202,34 +257,52 @@ BREW_CASK_APPS=(
   sonos
   sourcetree
   spotify
+  spotify
   statusfy
   studio-3t
   suspicious-package
+  syncthing
+  syntax-highlight
   tableplus
   telegram
   tor-browser
+  transmission
   tunnelblick
+  virtualbox-beta
   visual-studio-code
+  vlc
+  vnc-viewer
+  wine-stable
   xbar
   xquartz
+  xscope
+  zed
+  zulu11
 )
 BREW_CASK_NO_QUARANTINE=(
   syntax-highlight
 )
 NPM_APPS=(
   alfred-bundlephobia
+  corepack
+  degit
+  depcheck
   fkill-cli
-  git-open
+  git-alias
+  goops
+  http-server
   list-scripts
+  live-server
   npkill
-  npm@latest
+  npm-check
+  npm-check-unused
   npm-check-updates
+  npm-check
   npm-completion
-  npm-name-cli
-  pure-prompt
-  react-devtools
+  npm-ls-scripts
+  npm@latest
+  nx
   serve
-  tldr
   trash-cli
 )
 
@@ -286,7 +359,12 @@ select pkg in "${PKG_MGRS[@]}"; do
     nvm install node
     break
     ;;
-  "volta" | 4)
+  "pnpm" | 4)
+    corepack enable pnpm
+
+    break
+    ;;
+  "volta" | 5)
     brew install volta
     volta install node
     break
@@ -299,7 +377,8 @@ select pkg in "${PKG_MGRS[@]}"; do
 done
 
 if yesCheck "Would you like to install Yarn?? "; then
-  brew install yarn
+  # brew install yarn
+  corepack enable yarn
 fi
 
 action "Installing global NPM packages"
