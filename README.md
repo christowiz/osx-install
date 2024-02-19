@@ -15,7 +15,9 @@ $ sh install.sh
 ## TODO
 
 - [ ] Playcode app: https://github.com/playcode/playcode-desktop
-- [ ] Use `n` or `nvm`
+- [ ] neovim
+  - [ ] lazyvim
+- [ ] Use `corepack`
 - [ ] .gitconfig
   - [ ] 'Add email' prompt
 - [ ] Security tools: https://objective-see.com/products.html
