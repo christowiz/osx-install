@@ -1,8 +1,13 @@
 #!/bin/bash
+
+source ./homebrew.sh
+source ./npm_package.sh
+
 ## init
 CONTINUE="Press [Enter] to continue…"
+
 function pause() {
-  read -p "$* $CONTINUE"
+  read -pr "$* $CONTINUE"
 }
 
 function action() {
@@ -15,7 +20,7 @@ function section() {
 }
 
 function yesCheck() {
-  read -p "$* (y/n): "
+  read -pr "$* (y/n): "
   if [ "$REPLY" = "y" ]; then
     return 0
   else
@@ -24,7 +29,7 @@ function yesCheck() {
 }
 
 function noCheck() {
-  read -p "$* (y/n): "
+  read -pr "$* (y/n): "
   if [ "$REPLY" = "n" ]; then
     return 0
   else
@@ -66,16 +71,16 @@ section "Install Homebrew, packages and casks"
 if yesCheck "Install Homebrew? "; then
   if [ "$(command -v brew)" ]; then
     action "Clean current Homebrew install"
-    rm -fr $(brew --repo homebrew/core)
+    rm -fr "$(brew --repo homebrew/core)"
   else
     action "Installing Homebrew for you."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>~/.zprofile
+    echo "eval '$(/opt/homebrew/bin/brew shellenv)'" >>~/.zprofile
     eval "$(/opt/homebrew/bin/brew shellenv)"
   fi
 fi
 
-echo -e "\nMake sure we’re using the latest Homebrew"
+echo -e "\nMake sure we're using the latest Homebrew"
 action "Updating Brew…"
 brew update
 
@@ -92,230 +97,17 @@ brew tap homebrew/services
 brew tap sindrel/tap
 
 BREW_APP_DIR=~/Applications
-BREW_FORMULAES=(
-  asciinema
-  atuin
-  autojump
-  automake
-  aws-amplify
-  aws-rotate-key
-  awscli
-  bash
-  bash-completion
-  bat
-  berkeley-db
-  bfg
-  brew-cask-completion
-  brew-gem
-  caddy
-  ccat
-  corepack
-  coreutils
-  curl
-  deno
-  exa
-  fbthrift
-  fx
-  gh
-  git
-  git-extras
-  git-filter-repo
-  gitup
-  gnu-sed
-  gnupg
-  go
-  grep
-  hashicorp/tap/vault
-  htop
-  hub
-  hyperfine
-  ios-deploy
-  java
-  jless
-  jpeg
-  jq
-  kubernetes-cli
-  lastpass-cli
-  lazygit
-  libepoxy
-  mcfly
-  mkcert
-  mongodb-atlas-cli
-  mongodb-community
-  mongodb-database-tools
-  mongosh
-  nativefier
-  neovim
-  nvm
-  openssh
-  perl
-  powerlevel10k
-  python
-  ruby
-  sdl2
-  sindrel/tap/excalidraw-converter
-  soundsource
-  spoof-mac
-  telnet
-  terminal-notifier
-  thefuck
-  tldr
-  tmux
-  tor
-  tree
-  unixodbc
-  watch
-  watchman
-  wget
-  xz
-  yq
-  zsh
-)
-
-# Core Functionality
-BREW_CASK_APPS=(
-  a-better-finder-rename
-  adoptopenjdk
-  adoptopenjdk8
-  alfred
-  android-studio
-  app-tamer
-  apparency
-  appcleaner
-  authy
-  background-music
-  bartender
-  box-drive
-  brave-browser
-  caffeine
-  cakebrewjs
-  calibre
-  ccleaner
-  cyberduck
-  discord
-  diskcatalogmaker
-  docker
-  dropbox
-  dteoh-devdocs
-  eloston-chromium
-  expressvpn
-  fig
-  figma
-  find-any-file
-  firefox
-  firefox-developer-edition
-  fluid
-  font-fira-code
-  font-hack-nerd-font
-  gimp
-  gitbutler
-  github
-  google-chrome
-  google-chrome-canary
-  handbrake
-  homebrew/cask/docker
-  http-toolkit
-  iina
-  inkscape
-  insomnia
-  iterm2
-  kindle
-  kindle-previewer
-  kitematic
-  krita
-  lastpass
-  launchcontrol
-  lingon-x
-  livebook
-  macdown
-  macsvg
-  memory-cleaner
-  microsoft-edge
-  miro
-  mongodb-compass
-  mutespotifyads
-  ngrok
-  notion-enhanced
-  obsidian
-  openvpn-connect
-  oversight
-  paw
-  postman
-  qlcolorcode
-  qlimagesize
-  qlmarkdown
-  qlstephen
-  qlvideo
-  quicklook-json
-  quicklookase
-  raycast
-  rectangle
-  scroll-reverser
-  skype
-  slack
-  sloth
-  sonos
-  sourcetree
-  spotify
-  spotify
-  statusfy
-  studio-3t
-  suspicious-package
-  syncthing
-  syntax-highlight
-  tableplus
-  telegram
-  tor-browser
-  transmission
-  tunnelblick
-  virtualbox-beta
-  visual-studio-code
-  vlc
-  vnc-viewer
-  wine-stable
-  xbar
-  xquartz
-  xscope
-  zed
-  zulu11
-)
-BREW_CASK_NO_QUARANTINE=(
-  syntax-highlight
-)
-NPM_APPS=(
-  alfred-bundlephobia
-  corepack
-  degit
-  depcheck
-  fkill-cli
-  git-alias
-  goops
-  http-server
-  list-scripts
-  live-server
-  npkill
-  npm-check
-  npm-check-unused
-  npm-check-updates
-  npm-check
-  npm-completion
-  npm-ls-scripts
-  npm@latest
-  nx
-  serve
-  trash-cli
-)
 
 action "Installing Brew CLI Formulae"
-brew install ${BREW_FORMULAES[@]}
+brew install "${BREW_FORMULAES[@]}"
 
 # Symlink Java
 action "Configuring Java install"
 sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
 
 action "Installing Brew Cask Apps"
-brew install --appdir=$BREW_APP_DIR ${BREW_CASK_APPS[@]}
-brew install --cask --appdir=$BREW_APP_DIR --no-quarantine ${BREW_CASK_NO_QUARANTINE[@]}
+brew install --appdir=$BREW_APP_DIR "${BREW_CASK_APPS[@]}"
+brew install --cask --appdir=$BREW_APP_DIR --no-quarantine "${BREW_CASK_NO_QUARANTINE[@]}"
 
 # cleanup
 echo "Cleanup Homebrew"
@@ -325,64 +117,68 @@ rm -rf "$(brew --cache)"
 # NODE
 section "Node.js"
 
-echo "Choose Node.js package manager:"
-PKG_MGRS=(asdf n nvm volta)
-select pkg in "${PKG_MGRS[@]}"; do
-  case $pkg in
-  "asdf" | 1)
-    brew install asdf gpg
-    asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-    break
-    ;;
-  "n" | 2)
-    brew install n
-    n lts
+# echo "Choose Node.js package manager:"
+# PKG_MGRS=(asdf n nvm volta)
+# select pkg in "${PKG_MGRS[@]}"; do
+#   case $pkg in
+#   "asdf" | 1)
+#     brew install asdf gpg
+#     asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+#     break
+#     ;;
+#   "n" | 2)
+#     brew install n
+#     n lts
 
-    action "Fixing $(n) permissions"
-    sudo mkdir /usr/local/n
-    sudo chown -R $(whoami) $_
+#     action "Fixing $(n) permissions"
+#     sudo mkdir /usr/local/n
+#     sudo chown -R "$(whoami)" "$_"
 
-    action "Fix firewall when using $(n) package"
-    sudo /usr/libexec/ApplicationFirewall/socketfilterfw --remove $(which node)
-    sudo codesign --force --sign - $(which node)
-    sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $(which node)
-    break
-    ;;
-  "nvm" | 3)
-    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+#     action "Fix firewall when using $(n) package"
+#     sudo /usr/libexec/ApplicationFirewall/socketfilterfw --remove "$(which node)"
+#     sudo codesign --force --sign - "$(which node)"
+#     sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add "$(which node)"
+#     break
+#     ;;
+#   "nvm" | 3)
+#     wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
-    action "Setting up nvm"
-    echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"\n[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >>~/.zshrc
-    source ~/.nvm/nvm.sh
-    # source ~/.zprofile
+#     action "Setting up nvm"
+#     echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"\n[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >>~/.zshrc
 
-    nvm install node
-    break
-    ;;
-  "pnpm" | 4)
-    corepack enable pnpm
+#     source ~/.nvm/nvm.sh
+#     # source ~/.zprofile
 
-    break
-    ;;
-  "volta" | 5)
-    brew install volta
-    volta install node
-    break
-    ;;
-  *)
-    echo "Wrong selection: Select any number from 1-$#"
-    break
-    ;;
-  esac
-done
+#     nvm install node
+#     break
+#     ;;
+#   "pnpm" | 4)
+#     corepack enable pnpm
 
-if yesCheck "Would you like to install Yarn?? "; then
+#     break
+#     ;;
+#   "volta" | 5)
+#     brew install volta
+#     volta install node
+#     break
+#     ;;
+#   *)
+#     echo "Wrong selection: Select any number from 1-$#"
+#     break
+#     ;;
+#   esac
+# done
+
+action "Installing PNPM"
+if yesCheck "Would you like to install PNPM? "; then
   # brew install yarn
-  corepack enable yarn
+  # corepack enable yarn
+  # curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=10.0.0 sh -
+  wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.zshrc" SHELL="$(which zsh)" bash -
 fi
 
-action "Installing global NPM packages"
-npm install -g ${NPM_APPS[@]}
+action "Installing global NPM packages w/PNPM"
+pnpm add -g "${NPM_APPS[@]}"
 
 # Get applications from App Store
 # section "Install App Store applications"
@@ -426,11 +222,11 @@ rm -rf $FONT_TMP_DIR
 
 ## Switch shell to ZSH
 action "Add Brew-installed shells to /etc/shell"
-sudo dscl . -create /Users/$USER UserShell $(which bash)
-sudo dscl . -create /Users/$USER UserShell $(which zsh)
+sudo dscl . -create /Users/"$USER" UserShell $(which bash)
+sudo dscl . -create /Users/"$USER" UserShell $(which zsh)
 
 section "Check shell type"
-if [[ $(echo $0) != '/bin/zsh'* ]]; then
+if [[ $(echo "$0") != '/bin/zsh'* ]]; then
   if yesCheck "Would you like to switch to ZSH? (y/n)? "; then
     action "Changeing shell to ZSH"
     chsh -s $(which zsh)
