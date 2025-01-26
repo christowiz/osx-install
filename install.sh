@@ -69,16 +69,21 @@ fi
 section "Install Homebrew, packages and casks"
 
 # Check for Homebrew
-if yesCheck "Install Homebrew? "; then
-  if [ "$(command -v brew)" ]; then
-    action "Clean current Homebrew install"
-    rm -fr "$(brew --repo homebrew/core)"
-  else
-    action "Installing Homebrew for you."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    echo "eval '$(/opt/homebrew/bin/brew shellenv)'" >>~/.zprofile
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-  fi
+# if yesCheck "Install Homebrew? "; then
+#   if [ "$(command -v brew)" ]; then
+#     action "Clean current Homebrew install"
+#     rm -fr "$(brew --repo homebrew/core)"
+#   else
+#     action "Installing Homebrew for you."
+#     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#     echo "eval '$(/opt/homebrew/bin/brew shellenv)'" >>~/.zprofile
+#     eval "$(/opt/homebrew/bin/brew shellenv)"
+#   fi
+# fi
+
+if test ! "$(which brew)"; then
+  echo "Installing homebrew..."
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 echo -e "\nMake sure we're using the latest Homebrew"
@@ -89,26 +94,19 @@ echo -e "\nUpgrade any already-installed formulae"
 action "Upgrading Brew…"
 brew upgrade
 
-action "Tapping Homebrew"
-brew tap buo/cask-upgrade
-brew tap hashicorp/tap
-brew tap homebrew/cask-fonts
-brew tap homebrew/cask-versions
-brew tap homebrew/services
-brew tap sindrel/tap
+action "Installing Brewfile"
+brew bundle
 
-BREW_APP_DIR=~/Applications
-
-action "Installing Brew CLI Formulae"
-brew install "${BREW_FORMULAES[@]}"
+# action "Installing Brew CLI Formulae"
+# brew install "${BREW_FORMULAES[@]}"
 
 # Symlink Java
 action "Configuring Java install"
 sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
 
-action "Installing Brew Cask Apps"
-brew install --appdir=$BREW_APP_DIR "${BREW_CASK_APPS[@]}"
-brew install --cask --appdir=$BREW_APP_DIR --no-quarantine "${BREW_CASK_NO_QUARANTINE[@]}"
+# action "Installing Brew Cask Apps"
+# brew install --appdir="$BREW_APP_DIR" "${BREW_CASK_APPS[@]}"
+# brew install --cask --appdir="$BREW_APP_DIR" --no-quarantine "${BREW_CASK_NO_QUARANTINE[@]}"
 
 # cleanup
 echo "Cleanup Homebrew"
@@ -270,20 +268,20 @@ fi
 
 section "Configure Applications"
 action "Configure Dropbox for synced application preferences"
-open $BREW_APP_DIR/Dropbox.app
+open "$BREW_APP_DIR"/Dropbox.app
 pause "Opening Dropbox. ${CONTINUE}"
 
-open $BREW_APP_DIR/Alfred\ 4.app
+open "$BREW_APP_DIR"/Alfred\ 4.app
 pause "Opening Alfred 4. ${CONTINUE}"
-open $BREW_APP_DIR/Bartender\ 3.app
+open "$BREW_APP_DIR"/Bartender\ 3.app
 pause "Opening Bartender 4. ${CONTINUE}"
-open $BREW_APP_DIR/Caffeine.app
+open "$BREW_APP_DIR"/Caffeine.app
 pause "Opening Caffeine. ${CONTINUE}"
-open $BREW_APP_DIR/Franz.app
+open "$BREW_APP_DIR"/Franz.app
 pause "Opening Franz. ${CONTINUE}"
-open $BREW_APP_DIR/Spectacle.app
+open "$BREW_APP_DIR"/Spectacle.app
 pause "Opening Spectacle. ${CONTINUE}"
-open $BREW_APP_DIR/Spotify.app
+open "$BREW_APP_DIR"/Spotify.app
 pause "Opening Spotify. ${CONTINUE}"
 
 echo "After applications are configured connect preferences in Dropbox for following apps:"

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export BREW_APP_DIR=$HOME/Applications
 export BREW_FORMULAES=(
   asciinema
   atuin
