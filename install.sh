@@ -61,7 +61,8 @@ fi
 section "Dotfiles"
 if yesCheck "Install dotfiles? "; then
   # Dotfiles
-  pause "\nClone and install dotfiles from https://github.com/christowiz/dotfiles.git"
+  # pause "\nClone and install dotfiles from https://github.com/christowiz/dotfiles.git"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/christowiz/dotfiles/refs/heads/master/install.sh)"
 fi
 
 # Install Hoemebrew
