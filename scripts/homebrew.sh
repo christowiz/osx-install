@@ -223,3 +223,42 @@ export BREW_CASK_APPS=(
 export BREW_CASK_NO_QUARANTINE=(
   syntax-highlight
 )
+
+function install_homebrew() {
+  if test ! "$(which brew)"; then
+    echo "Installing homebrew..."
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
+
+  echo -e "\nMake sure we're using the latest Homebrew"
+  action "Updating Brew…"
+  brew update
+
+  echo -e "\nUpgrade any already-installed formulae"
+  action "Upgrading Brew…"
+  brew upgrade
+
+  action "Installing Brewfile"
+  brew bundle
+
+  # action "Installing Brew CLI Formulae"
+  # brew install "${BREW_FORMULAES[@]}"
+
+  # Symlink Java
+  action "Configuring Java install"
+  sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+
+  # action "Installing Brew Cask Apps"
+  # brew install --appdir="$BREW_APP_DIR" "${BREW_CASK_APPS[@]}"
+  # brew install --cask --appdir="$BREW_APP_DIR" --no-quarantine "${BREW_CASK_NO_QUARANTINE[@]}"
+
+  # cleanup
+  echo "Cleanup Homebrew"
+  brew cleanup --verbose -s
+  rm -rf "$(brew --cache)"
+
+  unset BREW_APP_DIR
+  unset BREW_CASK_APPS
+  unset BREW_FORMULAES
+  unset BREW_CASK_NO_QUARANTINE
+}

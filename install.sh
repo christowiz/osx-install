@@ -1,44 +1,45 @@
 #!/bin/bash
 
-source ./homebrew.sh
-source ./npm_package.sh
+source ./scripts/utils.sh
+source ./scripts/node-pkg-manager.sh
+source ./scripts/homebrew.sh
 
-## init
-CONTINUE="Press [Enter] to continue…"
+# ## init
+# CONTINUE="Press [Enter] to continue…"
 
-function pause() {
-  read -pr "$* $CONTINUE"
-}
+# function pause() {
+#   read -pr "$* $CONTINUE"
+# }
 
-function action() {
-  echo -e "--> $*"
-}
-function section() {
-  echo -e "\n\n"
-  echo "<================== $* =====================>"
-  echo -e "\n"
-}
+# function action() {
+#   echo -e "--> $*"
+# }
+# function section() {
+#   echo -e "\n\n"
+#   echo "<================== $* =====================>"
+#   echo -e "\n"
+# }
 
-function yesCheck() {
-  read -pr "$* (y/n): "
-  if [ "$REPLY" = "y" ]; then
-    return 0
-  else
-    return 1
-  fi
-}
+# function yesCheck() {
+#   read -pr "$* (y/n): "
+#   if [ "$REPLY" = "y" ]; then
+#     return 0
+#   else
+#     return 1
+#   fi
+# }
 
-function noCheck() {
-  read -pr "$* (y/n): "
-  if [ "$REPLY" = "n" ]; then
-    return 0
-  else
-    return 1
-  fi
-}
+# function noCheck() {
+#   read -pr "$* (y/n): "
+#   if [ "$REPLY" = "n" ]; then
+#     return 0
+#   else
+#     return 1
+#   fi
+# }
 
 section "Installation setup"
-echo -e "Before you begin the installation process make sure you own your hoe directory:"
+echo -e "Before you begin the installation process make sure you own your home directory:"
 echo -e "  sudo chown "
 # Software Update
 if [[ $OSTYPE != 'darwin'* ]]; then
@@ -68,6 +69,8 @@ fi
 # Install Hoemebrew
 section "Install Homebrew, packages and casks"
 
+install_homebrew
+
 # Check for Homebrew
 # if yesCheck "Install Homebrew? "; then
 #   if [ "$(command -v brew)" ]; then
@@ -81,37 +84,37 @@ section "Install Homebrew, packages and casks"
 #   fi
 # fi
 
-if test ! "$(which brew)"; then
-  echo "Installing homebrew..."
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
+# if test ! "$(which brew)"; then
+#   echo "Installing homebrew..."
+#   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# fi
 
-echo -e "\nMake sure we're using the latest Homebrew"
-action "Updating Brew…"
-brew update
+# echo -e "\nMake sure we're using the latest Homebrew"
+# action "Updating Brew…"
+# brew update
 
-echo -e "\nUpgrade any already-installed formulae"
-action "Upgrading Brew…"
-brew upgrade
+# echo -e "\nUpgrade any already-installed formulae"
+# action "Upgrading Brew…"
+# brew upgrade
 
-action "Installing Brewfile"
-brew bundle
+# action "Installing Brewfile"
+# brew bundle
 
-# action "Installing Brew CLI Formulae"
-# brew install "${BREW_FORMULAES[@]}"
+# # action "Installing Brew CLI Formulae"
+# # brew install "${BREW_FORMULAES[@]}"
 
-# Symlink Java
-action "Configuring Java install"
-sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+# # Symlink Java
+# action "Configuring Java install"
+# sudo ln -sfn /opt/homebrew/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
 
-# action "Installing Brew Cask Apps"
-# brew install --appdir="$BREW_APP_DIR" "${BREW_CASK_APPS[@]}"
-# brew install --cask --appdir="$BREW_APP_DIR" --no-quarantine "${BREW_CASK_NO_QUARANTINE[@]}"
+# # action "Installing Brew Cask Apps"
+# # brew install --appdir="$BREW_APP_DIR" "${BREW_CASK_APPS[@]}"
+# # brew install --cask --appdir="$BREW_APP_DIR" --no-quarantine "${BREW_CASK_NO_QUARANTINE[@]}"
 
-# cleanup
-echo "Cleanup Homebrew"
-brew cleanup --verbose -s
-rm -rf "$(brew --cache)"
+# # cleanup
+# echo "Cleanup Homebrew"
+# brew cleanup --verbose -s
+# rm -rf "$(brew --cache)"
 
 # NODE
 section "Node.js"
@@ -169,15 +172,8 @@ section "Node.js"
 # done
 
 action "Installing PNPM"
-if yesCheck "Would you like to install PNPM? "; then
-  # brew install yarn
-  # corepack enable yarn
-  # curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=10.0.0 sh -
-  wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.zshrc" SHELL="$(which zsh)" bash -
-fi
 
-action "Installing global NPM packages w/PNPM"
-pnpm add -g "${NPM_APPS[@]}"
+install_pnpm
 
 # Get applications from App Store
 # section "Install App Store applications"
@@ -196,41 +192,42 @@ pnpm add -g "${NPM_APPS[@]}"
 
 ## Set shell to zsh using `oh-my-zsh`
 section "Installing Oh-My-Zsh"
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-CUSTOM_ZSH=~/.oh-my-zsh/custom
 
-## ZSH Powerlevel10k Theme
-## https://github.com/romkatv/powerlevel10k
-## https://jwendl.net/2019/12/07/wsl-powerlevel10k/
-action "Cloning 'Powerlevel10k' theme"
-git clone https://github.com/romkatv/powerlevel10k.git $CUSTOM_ZSH/themes/powerlevel10k
-action "Cloning 'zsh-autosuggestions' plugin"
-git clone https://github.com/zsh-users/zsh-autosuggestions $CUSTOM_ZSH/plugins/zsh-autosuggestions
-action "Cloning 'zsh-syntax-highlighting' plugin"
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $CUSTOM_ZSH/plugins/zsh-syntax-highlighting
+# sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# CUSTOM_ZSH=~/.oh-my-zsh/custom
 
-## Install font for Powerlevel9k theme
-POWERLINE_FONTS="https://github.com/powerline/fonts.git"
+# ## ZSH Powerlevel10k Theme
+# ## https://github.com/romkatv/powerlevel10k
+# ## https://jwendl.net/2019/12/07/wsl-powerlevel10k/
+# action "Cloning 'Powerlevel10k' theme"
+# git clone https://github.com/romkatv/powerlevel10k.git $CUSTOM_ZSH/themes/powerlevel10k
+# action "Cloning 'zsh-autosuggestions' plugin"
+# git clone https://github.com/zsh-users/zsh-autosuggestions $CUSTOM_ZSH/plugins/zsh-autosuggestions
+# action "Cloning 'zsh-syntax-highlighting' plugin"
+# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $CUSTOM_ZSH/plugins/zsh-syntax-highlighting
 
-action "Installing Powerline fronts from $POWERLINE_FONTS"
-FONT_TMP_DIR=".tmp"
-mkdir $FONT_TMP_DIR
-git clone $POWERLINE_FONTS ./$FONT_TMP_DIR
-sh $FONT_TMP_DIR/install.sh
-rm -rf $FONT_TMP_DIR
+# ## Install font for Powerlevel9k theme
+# POWERLINE_FONTS="https://github.com/powerline/fonts.git"
 
-## Switch shell to ZSH
-action "Add Brew-installed shells to /etc/shell"
-sudo dscl . -create /Users/"$USER" UserShell $(which bash)
-sudo dscl . -create /Users/"$USER" UserShell $(which zsh)
+# action "Installing Powerline fronts from $POWERLINE_FONTS"
+# FONT_TMP_DIR=".tmp"
+# mkdir $FONT_TMP_DIR
+# git clone $POWERLINE_FONTS ./$FONT_TMP_DIR
+# sh $FONT_TMP_DIR/install.sh
+# rm -rf $FONT_TMP_DIR
 
-section "Check shell type"
-if [[ $(echo "$0") != '/bin/zsh'* ]]; then
-  if yesCheck "Would you like to switch to ZSH? (y/n)? "; then
-    action "Changeing shell to ZSH"
-    chsh -s $(which zsh)
-  fi
-fi
+# ## Switch shell to ZSH
+# action "Add Brew-installed shells to /etc/shell"
+# sudo dscl . -create /Users/"$USER" UserShell $(which bash)
+# sudo dscl . -create /Users/"$USER" UserShell $(which zsh)
+
+# section "Check shell type"
+# if [[ $0 != '/bin/zsh'* ]]; then
+#   if yesCheck "Would you like to switch to ZSH? (y/n)? "; then
+#     action "Changeing shell to ZSH"
+#     chsh -s $(which zsh)
+#   fi
+# fi
 
 ecactionho "xcode-select install/switch"
 sudo xcode-select --install
@@ -254,11 +251,6 @@ action "Restarting Finder"
 killall Finder
 
 section "Manual application install"
-
-if yesCheck "Would you like to install Quiver?"; then
-  pause "Download Quiver from https://yliansoft.com and drag it to your Applications folder."
-  open "https://yliansoft.com"
-fi
 
 # Install Prey
 if yesCheck "Would you like to install Prey?"; then
@@ -291,16 +283,16 @@ pause "Configure iTerm2"
 section "Additional security: https://objective-see.com/products.html"
 
 unset APPSTORE
-unset BREW_APP_DIR
-unset BREW_CASK_APPS
-unset BREW_FORMULAES
+# unset BREW_APP_DIR
+# unset BREW_CASK_APPS
+# unset BREW_FORMULAES
 unset CONTINUE
-unset CUSTOM_ZSH
-unset FONT_TMP_DIR
-unset NPM_APPS
+# unset CUSTOM_ZSH
+# unset FONT_TMP_DIR
+# unset NPM_APPS
 unset pause
 unset PKG_MGRS
-unset POWERLINE_FONTS
+# unset POWERLINE_FONTS
 unset section
 unset SUBLIME
 
